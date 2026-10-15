@@ -175,16 +175,16 @@ export const themes = {
   minimalLight: {
     name: "Minimal Light",
     colors: {
-      bgPrimary: "#F8FAFC",
+      bgPrimary: "#FFFFFF",
       bgSecondary: "#FFFFFF",
       bgCard: "#FFFFFF",
       accentBlue: "#2563EB",
-      accentPurple: "#7C3AED",
+      accentPurple: "#60A5FA",
       accentHover: "#1D4ED8",
-      textMain: "#0F172A",
-      textMuted: "#475569",
-      border: "#E2E8F0",
-      borderGlow: "rgba(37, 99, 235, 0.15)",
+      textMain: "#111827",
+      textMuted: "#64748B",
+      border: "#E5E7EB",
+      borderGlow: "rgba(37, 99, 235, 0.12)",
       success: "#15803D",
       error: "#DC2626",
     },
@@ -231,4 +231,4 @@ export const themes = {
 
 // Change this line to switch your theme instantly!
 // Options: themes.sunsetGold, themes.midnightBlue, themes.emeraldMatrix, themes.cyberpunk, themes.arcticFrost, themes.crimsonNight, themes.royalAmethyst, themes.oceanTeal, themes.minimalLight, themes.roseQuartz
-export const theme = themes.pureBlack;
+export const theme = themes.minimalLight;

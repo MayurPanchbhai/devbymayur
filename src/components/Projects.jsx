@@ -5,23 +5,23 @@ export default function Projects({ themeColors }) {
   const projects = [
     {
       title: "BloxHive.gg Web Platform",
-      category: "Full-Stack Web App",
-      description: "Contributed frontend and backend development featuring WebSocket live updates.",
-      tech: ["React", "Node.js", "WebSockets", "Tailwind CSS"],
+      category: "Online platform",
+      description: "A connected web platform with live updates to keep information current for its users.",
+      tech: ["Live updates", "Online platform"],
       link: "#"
     },
     {
       title: "Job Application Automation Tool",
-      category: "Python Automation",
-      description: "Developed an automated mailer tool designed to streamline bulk job outreach.",
-      tech: ["Python", "SMTP", "Automation"],
+      category: "Business automation",
+      description: "A tool designed to make repetitive email outreach faster and easier to manage.",
+      tech: ["Email workflow", "Automation"],
       link: "#"
     },
     {
       title: "Personal Brand & Media Hub",
-      category: "Frontend Application",
-      description: "High-performance portfolio platform built for personal branding.",
-      tech: ["React", "Tailwind CSS", "Vite"],
+      category: "Business website",
+      description: "A modern website that presents services clearly and gives visitors an easy way to make contact.",
+      tech: ["Responsive design", "Business website"],
       link: "#"
     }
   ];
@@ -41,7 +41,7 @@ export default function Projects({ themeColors }) {
             Recent Projects & Creations
           </h2>
           <p className="mt-3 text-sm sm:text-base" style={{ color: themeColors.textMuted }}>
-            Explore a selection of my engineering projects and digital applications.
+            Examples of websites and software designed to solve practical needs.
           </p>
         </div>
 
@@ -50,7 +50,7 @@ export default function Projects({ themeColors }) {
             <div
               key={index}
               className="border rounded-3xl p-6 flex flex-col justify-between group transition-all duration-300 shadow-xl hover:-translate-y-1"
-              style={{ backgroundColor: themeColors.bgSecondary, borderColor: '#1F2937' }}
+              style={{ backgroundColor: themeColors.bgSecondary, borderColor: themeColors.border }}
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -60,7 +60,7 @@ export default function Projects({ themeColors }) {
                   >
                     {project.category}
                   </span>
-                  <a href={project.link} className="text-gray-400 hover:text-white transition-colors p-2" aria-label="View Project">
+                  <a href={project.link} className="p-2 transition-colors" style={{ color: themeColors.textMuted }} aria-label="View Project">
                     <ExternalLink className="w-5 h-5" />
                   </a>
                 </div>
@@ -72,19 +72,20 @@ export default function Projects({ themeColors }) {
                 </p>
               </div>
 
-              <div className="mt-6 pt-6 border-t border-gray-800/80">
+              <div className="mt-6 border-t pt-6" style={{ borderColor: themeColors.border }}>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tech.map((t, i) => (
-                    <span key={i} className="text-xs px-2.5 py-1 rounded-lg bg-gray-900 text-gray-300 border border-gray-800">
+                    <span key={i} className="rounded-lg border px-2.5 py-1 text-xs" style={{ backgroundColor: themeColors.bgPrimary, color: themeColors.textMuted, borderColor: themeColors.border }}>
                       {t}
                     </span>
                   ))}
                 </div>
                 <a
                   href={project.link}
-                  className="w-full flex items-center justify-center space-x-2 py-2.5 rounded-xl bg-gray-900 hover:opacity-90 text-gray-200 font-medium text-sm border border-gray-800 transition-all"
+                  className="w-full flex items-center justify-center space-x-2 py-2.5 rounded-xl font-medium text-sm border transition-all hover:opacity-80"
+                  style={{ backgroundColor: themeColors.bgPrimary, color: themeColors.textMain, borderColor: themeColors.border }}
                 >
-                  <span>View Repository</span>
+                  <span>View Project</span>
                 </a>
               </div>
             </div>

@@ -13,7 +13,7 @@ export default function Navbar({ themeColors }) {
   return (
     <nav 
       className="sticky top-0 z-50 backdrop-blur-md border-b"
-      style={{ backgroundColor: `${themeColors.bgPrimary}CC`, borderColor: '#1F2937' }}
+      style={{ backgroundColor: `${themeColors.bgPrimary}F2`, borderColor: themeColors.border }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -35,7 +35,7 @@ export default function Navbar({ themeColors }) {
           <div className="hidden md:flex items-center space-x-8 text-sm font-medium" style={{ color: themeColors.textMuted }}>
             <a href="#about" className="hover:opacity-80 transition-opacity">About</a>
             <a href="#services" className="hover:opacity-80 transition-opacity">Services</a>
-            <a href="#devices" className="hover:opacity-80 transition-opacity">Showcase</a>
+            <a href="#devices" className="hover:opacity-80 transition-opacity">For every screen</a>
             <a href="#projects" className="hover:opacity-80 transition-opacity">Projects</a>
             <a href="#contact" className="hover:opacity-80 transition-opacity">Contact</a>
           </div>
@@ -43,10 +43,11 @@ export default function Navbar({ themeColors }) {
           <div className="hidden md:flex items-center">
             <button
               onClick={() => handleWhatsApp("Navbar Direct Inquiry")}
-              className="flex items-center space-x-2 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-green-600 text-white font-medium shadow-lg shadow-emerald-600/20 transform hover:-translate-y-0.5 transition-all"
+              className="flex items-center space-x-2 px-4 py-2 rounded-xl text-white font-medium shadow-lg transform hover:-translate-y-0.5 transition-all"
+              style={{ backgroundColor: themeColors.accentBlue }}
             >
               <MessageCircle className="w-4 h-4" />
-              <span>Chat on WhatsApp</span>
+              <span>Discuss a project</span>
             </button>
           </div>
 
@@ -59,18 +60,19 @@ export default function Navbar({ themeColors }) {
       </div>
 
       {isOpen && (
-        <div className="md:hidden border-b px-4 pt-2 pb-6 space-y-3" style={{ backgroundColor: themeColors.bgSecondary, borderColor: '#1F2937' }}>
+        <div className="md:hidden border-b px-4 pt-2 pb-6 space-y-3" style={{ backgroundColor: themeColors.bgSecondary, borderColor: themeColors.border }}>
           <a href="#about" onClick={() => setIsOpen(false)} className="block py-2" style={{ color: themeColors.textMuted }}>About</a>
           <a href="#services" onClick={() => setIsOpen(false)} className="block py-2" style={{ color: themeColors.textMuted }}>Services</a>
           <a href="#devices" onClick={() => setIsOpen(false)} className="block py-2" style={{ color: themeColors.textMuted }}>Showcase</a>
-          <a href="#projects" onClick={() => setIsOpen(false)} className="block py-2" style={{ color: themeColors.textMuted }}>Services</a>
+          <a href="#projects" onClick={() => setIsOpen(false)} className="block py-2" style={{ color: themeColors.textMuted }}>Projects</a>
           <a href="#contact" onClick={() => setIsOpen(false)} className="block py-2" style={{ color: themeColors.textMuted }}>Contact</a>
           <button
             onClick={() => handleWhatsApp("Mobile Menu Inquiry")}
-            className="w-full flex items-center justify-center space-x-2 py-2.5 rounded-xl bg-emerald-600 text-white font-medium"
+            className="w-full flex items-center justify-center space-x-2 py-2.5 rounded-xl text-white font-medium"
+            style={{ backgroundColor: themeColors.accentBlue }}
           >
             <MessageCircle className="w-4 h-4" />
-            <span>Chat on WhatsApp</span>
+            <span>Discuss a project</span>
           </button>
         </div>
       )}

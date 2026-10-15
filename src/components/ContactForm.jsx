@@ -22,29 +22,29 @@ export default function ContactForm({ themeColors }) {
               style={{ backgroundColor: `${themeColors.accentBlue}15`, borderColor: `${themeColors.accentBlue}30`, color: themeColors.accentBlue }}
             >
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Get in Touch</span>
+            <span>Start a Conversation</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight" style={{ color: themeColors.textMain }}>
-              Let's Build Something Amazing Together
+              Tell us what your business needs
             </h2>
             <p className="mt-4 text-sm sm:text-base leading-relaxed" style={{ color: themeColors.textMuted }}>
-              Have a project in mind, need technical consultation, or want professional services? Connect instantly.
+              Share the challenge you want to solve or the website you want to create. We’ll talk through the next steps with you.
             </p>
 
             <div className="mt-8 space-y-4">
               <div className="flex items-center space-x-3 text-sm" style={{ color: themeColors.textMain }}>
-                <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
-                <span>Fast Response Times</span>
+                <CheckCircle2 className="w-5 h-5 flex-shrink-0" style={{ color: themeColors.accentBlue }} />
+                <span>A clear plan before work begins</span>
               </div>
               <div className="flex items-center space-x-3 text-sm" style={{ color: themeColors.textMain }}>
-                <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
-                <span>Dedicated Support & Consultation</span>
+                <CheckCircle2 className="w-5 h-5 flex-shrink-0" style={{ color: themeColors.accentBlue }} />
+                <span>Friendly, straightforward communication</span>
               </div>
             </div>
           </div>
 
           <div className="lg:col-span-7">
-            <div className="border rounded-3xl p-8 shadow-2xl relative" style={{ backgroundColor: themeColors.bgSecondary, borderColor: '#1F2937' }}>
+            <div className="border rounded-3xl p-8 shadow-xl relative" style={{ backgroundColor: themeColors.bgSecondary, borderColor: themeColors.border }}>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label className="block text-sm font-medium mb-2" style={{ color: themeColors.textMain }}>Your Name</label>
@@ -54,7 +54,8 @@ export default function ContactForm({ themeColors }) {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Enter your name"
-                    className="w-full bg-[#030712] border border-gray-800 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 text-sm"
+                    className="w-full rounded-xl border px-4 py-3 text-sm focus:outline-none focus:ring-2"
+                    style={{ backgroundColor: themeColors.bgPrimary, color: themeColors.textMain, borderColor: themeColors.border, '--tw-ring-color': themeColors.accentBlue }}
                   />
                 </div>
 
@@ -65,25 +66,28 @@ export default function ContactForm({ themeColors }) {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="Enter your email (optional)"
-                    className="w-full bg-[#030712] border border-gray-800 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 text-sm"
+                    className="w-full rounded-xl border px-4 py-3 text-sm focus:outline-none focus:ring-2"
+                    style={{ backgroundColor: themeColors.bgPrimary, color: themeColors.textMain, borderColor: themeColors.border, '--tw-ring-color': themeColors.accentBlue }}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-2" style={{ color: themeColors.textMain }}>Your Message / Project Details</label>
+                  <label className="block text-sm font-medium mb-2" style={{ color: themeColors.textMain }}>What would you like help with?</label>
                   <textarea
                     required
                     rows={4}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="Describe your project or requirement..."
-                    className="w-full bg-[#030712] border border-gray-800 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 text-sm resize-none"
+                    placeholder="Tell us about your business and what you want to improve..."
+                    className="w-full resize-none rounded-xl border px-4 py-3 text-sm focus:outline-none focus:ring-2"
+                    style={{ backgroundColor: themeColors.bgPrimary, color: themeColors.textMain, borderColor: themeColors.border, '--tw-ring-color': themeColors.accentBlue }}
                   ></textarea>
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 text-white font-semibold shadow-lg shadow-emerald-600/20 flex items-center justify-center space-x-2 transition-all"
+                  className="w-full py-4 rounded-xl text-white font-semibold shadow-lg flex items-center justify-center space-x-2 transition-all hover:opacity-90"
+                  style={{ backgroundColor: themeColors.accentBlue }}
                 >
                   <MessageCircle className="w-5 h-5" />
                   <span>Send Message via WhatsApp</span>

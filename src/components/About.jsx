@@ -1,5 +1,5 @@
 import React from 'react';
-import { Code, Video, Cpu, CheckCircle2 } from 'lucide-react';
+import { Globe2, Workflow, Cpu, CheckCircle2 } from 'lucide-react';
 
 export default function About({ themeColors }) {
   return (
@@ -12,25 +12,25 @@ export default function About({ themeColors }) {
                 className="absolute -inset-1 rounded-3xl blur-lg opacity-30"
                 style={{ backgroundImage: `linear-gradient(to right, ${themeColors.accentBlue}, ${themeColors.accentPurple})` }}
               ></div>
-              <div className="relative border rounded-3xl p-8 shadow-2xl" style={{ backgroundColor: themeColors.bgSecondary, borderColor: '#1F2937' }}>
+              <div className="relative border rounded-3xl p-8 shadow-xl" style={{ backgroundColor: themeColors.bgSecondary, borderColor: themeColors.border }}>
                 <div 
                   className="w-16 h-16 rounded-2xl border flex items-center justify-center mb-6"
                   style={{ backgroundColor: `${themeColors.accentBlue}20`, borderColor: `${themeColors.accentBlue}40` }}
                 >
                   <Cpu className="w-8 h-8" style={{ color: themeColors.accentBlue }} />
                 </div>
-                <h3 className="text-2xl font-bold" style={{ color: themeColors.textMain }}>Engineering Mindset</h3>
+                <h3 className="text-2xl font-bold" style={{ color: themeColors.textMain }}>Business-first solutions</h3>
                 <p className="mt-3 text-sm leading-relaxed" style={{ color: themeColors.textMuted }}>
-                  Combining rigorous engineering principles with creative media production to build impactful software.
+                  You know your business best. We listen first, understand the problem and create a digital solution that fits the way you work.
                 </p>
                 <div className="mt-6 space-y-3">
                   <div className="flex items-center space-x-3 text-sm" style={{ color: themeColors.textMain }}>
                     <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
-                    <span>MERN Stack Architecture & APIs</span>
+                    <span>Websites that turn visits into enquiries</span>
                   </div>
                   <div className="flex items-center space-x-3 text-sm" style={{ color: themeColors.textMain }}>
                     <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
-                    <span>Professional Video Editing & Motion Graphics</span>
+                    <span>Software that makes work easier</span>
                   </div>
                 </div>
               </div>
@@ -39,30 +39,30 @@ export default function About({ themeColors }) {
 
           <div className="lg:col-span-7">
             <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight" style={{ color: themeColors.textMain }}>
-              Driven by Passion, Defined by Precision
+              Practical digital solutions for real business needs
             </h2>
             <p className="mt-4 text-base leading-relaxed" style={{ color: themeColors.textMuted }}>
-              I am a versatile full-stack developer and creative video editor dedicated to building seamless digital experiences.
+              Whether you need a first website, a better online presence or software to solve a day-to-day challenge, we make the process clear and focused on your goals.
             </p>
 
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div className="border p-6 rounded-2xl" style={{ backgroundColor: themeColors.bgSecondary, borderColor: '#1F2937' }}>
+              <div className="border p-6 rounded-2xl" style={{ backgroundColor: themeColors.bgSecondary, borderColor: themeColors.border }}>
                 <div className="flex items-center space-x-3 mb-3">
-                  <Code className="w-6 h-6" style={{ color: themeColors.accentBlue }} />
-                  <h4 className="text-lg font-bold" style={{ color: themeColors.textMain }}>Web Development</h4>
+                  <Globe2 className="w-6 h-6" style={{ color: themeColors.accentBlue }} />
+                  <h4 className="text-lg font-bold" style={{ color: themeColors.textMain }}>Business websites</h4>
                 </div>
                 <p className="text-sm" style={{ color: themeColors.textMuted }}>
-                  Specializing in React, Node.js, Express, and MongoDB.
+                  Professional, mobile-friendly websites that explain what you do and help customers get in touch.
                 </p>
               </div>
 
-              <div className="border p-6 rounded-2xl" style={{ backgroundColor: themeColors.bgSecondary, borderColor: '#1F2937' }}>
+              <div className="border p-6 rounded-2xl" style={{ backgroundColor: themeColors.bgSecondary, borderColor: themeColors.border }}>
                 <div className="flex items-center space-x-3 mb-3">
-                  <Video className="w-6 h-6" style={{ color: themeColors.accentPurple }} />
-                  <h4 className="text-lg font-bold" style={{ color: themeColors.textMain }}>Video Editing</h4>
+                  <Workflow className="w-6 h-6" style={{ color: themeColors.accentPurple }} />
+                  <h4 className="text-lg font-bold" style={{ color: themeColors.textMain }}>Custom software</h4>
                 </div>
                 <p className="text-sm" style={{ color: themeColors.textMuted }}>
-                  Creating high-retention video content and shorts.
+                  Useful digital tools tailored to your process, customers and business goals.
                 </p>
               </div>
             </div>

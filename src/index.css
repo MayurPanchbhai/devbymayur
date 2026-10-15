@@ -39,6 +39,32 @@
   animation: pulseGlow 3s ease-in-out infinite;
 }
 
+.service-marquee-track {
+  animation: service-marquee 34s linear infinite;
+  will-change: transform;
+}
+
+.service-marquee:hover .service-marquee-track,
+.service-marquee.is-paused .service-marquee-track,
+.service-marquee:focus-within .service-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes service-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-marquee-track {
+    animation-duration: 90s;
+  }
+}
+
 /* Custom scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;

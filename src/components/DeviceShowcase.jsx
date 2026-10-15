@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Smartphone, Laptop, Monitor, Sparkles } from 'lucide-react';
+import { Smartphone, Laptop, Sparkles } from 'lucide-react';
 
 export default function DeviceShowcase({ themeColors }) {
   const [activeDevice, setActiveDevice] = useState('laptop');
 
   return (
-    <section id="devices" className="py-20 border-y" style={{ backgroundColor: `${themeColors.bgSecondary}50`, borderColor: '#1F2937' }}>
+    <section id="devices" className="py-20 border-y" style={{ backgroundColor: themeColors.bgSecondary, borderColor: themeColors.border }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <div 
@@ -19,25 +19,25 @@ export default function DeviceShowcase({ themeColors }) {
             Seamless Experience Across All Devices
           </h2>
           <p className="mt-3 text-sm sm:text-base" style={{ color: themeColors.textMuted }}>
-            Click below to preview how digital solutions seamlessly adapt from Mobile to Laptop and Desktop screens.
+            Preview how a carefully designed experience adapts to phones and laptops.
           </p>
 
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            {['mobile', 'laptop', 'desktop'].map((dev) => (
+            {['mobile', 'laptop'].map((dev) => (
               <button
                 key={dev}
                 onClick={() => setActiveDevice(dev)}
                 className={`flex items-center space-x-2 px-5 py-2.5 rounded-xl font-medium text-sm transition-all border ${
-                  activeDevice === dev ? 'text-white shadow-lg' : 'text-gray-400 hover:text-white'
+                  activeDevice === dev ? 'text-white shadow-lg' : 'hover:opacity-75'
                 }`}
                 style={{
                   backgroundColor: activeDevice === dev ? themeColors.accentBlue : themeColors.bgSecondary,
-                  borderColor: activeDevice === dev ? themeColors.accentBlue : '#1F2937'
+                  borderColor: activeDevice === dev ? themeColors.accentBlue : themeColors.border,
+                  color: activeDevice === dev ? '#FFFFFF' : themeColors.textMuted
                 }}
               >
                 {dev === 'mobile' && <Smartphone className="w-4 h-4" />}
                 {dev === 'laptop' && <Laptop className="w-4 h-4" />}
-                {dev === 'desktop' && <Monitor className="w-4 h-4" />}
                 <span className="capitalize">{dev} View</span>
               </button>
             ))}
@@ -46,15 +46,15 @@ export default function DeviceShowcase({ themeColors }) {
 
         <div className="flex justify-center items-center transition-all duration-500">
           {activeDevice === 'mobile' && (
-            <div className="w-[300px] h-[580px] bg-gray-950 rounded-[40px] border-4 border-gray-700 shadow-2xl p-4 relative flex flex-col justify-between animate-float">
-              <div className="absolute top-3 left-1/2 -translate-x-1/2 w-28 h-4 bg-gray-700 rounded-full"></div>
-              <div className="mt-6 bg-gray-900 rounded-2xl p-4 flex-1 flex flex-col justify-between border border-gray-800">
+            <div className="w-[min(300px,calc(100vw-2rem))] h-[min(580px,calc(100vw*1.72))] min-h-[420px] rounded-[40px] border-4 p-4 relative flex flex-col justify-between animate-float shadow-xl" style={{ backgroundColor: themeColors.bgPrimary, borderColor: themeColors.border }}>
+              <div className="absolute top-3 left-1/2 -translate-x-1/2 w-28 h-4 rounded-full" style={{ backgroundColor: themeColors.border }}></div>
+              <div className="mt-6 rounded-2xl p-4 flex-1 flex flex-col justify-between border" style={{ backgroundColor: themeColors.bgSecondary, borderColor: themeColors.border }}>
                 <div>
                   <div className="w-8 h-8 rounded-lg mb-3 flex items-center justify-center text-white font-bold" style={{ backgroundColor: themeColors.accentBlue }}>M</div>
-                  <h4 className="text-white font-bold text-sm">Mobile UI Preview</h4>
-                  <p className="text-gray-400 text-xs mt-1">Optimized touch interactions & fast loading speeds.</p>
+                  <h4 className="font-bold text-sm" style={{ color: themeColors.textMain }}>A website on mobile</h4>
+                  <p className="text-xs mt-1" style={{ color: themeColors.textMuted }}>Easy to read, navigate and contact you from.</p>
                 </div>
-                <div className="border rounded-xl p-3 text-center" style={{ backgroundColor: `${themeColors.accentBlue}20`, borderColor: `${themeColors.accentBlue}40` }}>
+                <div className="border rounded-xl p-3 text-center" style={{ backgroundColor: `${themeColors.accentBlue}12`, borderColor: `${themeColors.accentBlue}40` }}>
                   <span className="text-xs font-semibold" style={{ color: themeColors.accentBlue }}>100% Mobile Friendly</span>
                 </div>
               </div>
@@ -63,50 +63,23 @@ export default function DeviceShowcase({ themeColors }) {
           )}
 
           {activeDevice === 'laptop' && (
-            <div className="w-full max-w-3xl bg-gray-950 rounded-2xl border-4 border-gray-700 shadow-2xl p-4 relative animate-float">
-              <div className="flex items-center justify-between pb-3 border-b border-gray-800">
+            <div className="w-full max-w-3xl rounded-2xl border-4 p-4 relative animate-float shadow-xl" style={{ backgroundColor: themeColors.bgPrimary, borderColor: themeColors.border }}>
+              <div className="flex items-center justify-between pb-3 border-b" style={{ borderColor: themeColors.border }}>
                 <div className="flex space-x-1.5">
-                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                  <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-red-400"></div>
+                  <div className="w-3 h-3 rounded-full bg-amber-400"></div>
+                  <div className="w-3 h-3 rounded-full bg-emerald-400"></div>
                 </div>
-                <div className="bg-gray-900 px-4 py-1 rounded-lg text-xs text-gray-400 border border-gray-800">https://mayur.dev</div>
+                <div className="px-4 py-1 rounded-lg text-xs border truncate" style={{ backgroundColor: themeColors.bgSecondary, color: themeColors.textMuted, borderColor: themeColors.border }}>Your website</div>
                 <div className="w-6"></div>
               </div>
               <div className="py-8 px-4 text-center">
-                <h3 className="text-xl font-bold text-white">Laptop & Tablet Optimized</h3>
-                <p className="text-gray-400 text-sm mt-2 max-w-lg mx-auto">Providing expansive layout designs and grid systems.</p>
+                <h3 className="text-xl font-bold" style={{ color: themeColors.textMain }}>A clear experience on every screen</h3>
+                <p className="text-sm mt-2 max-w-lg mx-auto" style={{ color: themeColors.textMuted }}>Your customers can find what they need whether they’re on a phone or laptop.</p>
               </div>
             </div>
           )}
 
-          {activeDevice === 'desktop' && (
-            <div className="w-full max-w-5xl bg-gray-950 rounded-2xl border-4 border-gray-700 shadow-2xl p-4 relative animate-float">
-              <div className="flex items-center justify-between pb-3 border-b border-gray-800">
-                <div className="flex space-x-1.5">
-                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                  <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                </div>
-                <div className="bg-gray-900 px-6 py-1 rounded-lg text-xs text-gray-400 border border-gray-800">https://mayur.dev/dashboard</div>
-                <div className="w-6"></div>
-              </div>
-              <div className="py-12 px-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-gray-900 p-4 rounded-xl border border-gray-800">
-                  <h4 className="text-white font-semibold text-sm">Full-Stack Arch</h4>
-                  <p className="text-gray-400 text-xs mt-1">Robust Node.js & React ecosystem.</p>
-                </div>
-                <div className="bg-gray-900 p-4 rounded-xl border border-gray-800">
-                  <h4 className="text-white font-semibold text-sm">Motion Graphics</h4>
-                  <p className="text-gray-400 text-xs mt-1">High retention video editing.</p>
-                </div>
-                <div className="bg-gray-900 p-4 rounded-xl border border-gray-800">
-                  <h4 className="text-white font-semibold text-sm">Instant Connect</h4>
-                  <p className="text-gray-400 text-xs mt-1">Direct WhatsApp lead generation.</p>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </section>
