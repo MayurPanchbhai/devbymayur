@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X, MessageCircle, Sparkles } from 'lucide-react';
+import { Menu, X, MessageCircle, Sparkles, ArrowUpRight, ArrowRight } from 'lucide-react';
 
 export default function Navbar({ themeColors }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,71 +11,98 @@ export default function Navbar({ themeColors }) {
   };
 
   return (
-    <nav 
-      className="sticky top-0 z-50 backdrop-blur-md border-b"
+    <nav
+      className="sticky top-0 z-50 border-b backdrop-blur-xl"
       style={{ backgroundColor: `${themeColors.bgPrimary}F2`, borderColor: themeColors.border }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex h-[76px] items-center justify-between gap-4">
           <a href="#" className="flex items-center space-x-2 group">
             <div 
-              className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform"
-              style={{ background: `linear-gradient(to top right, ${themeColors.accentBlue}, ${themeColors.accentPurple})` }}
+              className="flex h-10 w-10 items-center justify-center rounded-full transition-transform group-hover:scale-105"
+              style={{ backgroundColor: `${themeColors.accentBlue}12`, color: themeColors.accentBlue }}
             >
-              <Sparkles className="w-5 h-5 text-white" />
+              <Sparkles className="w-5 h-5" />
             </div>
-            <span 
-              className="text-xl font-bold bg-clip-text text-transparent"
-              style={{ backgroundImage: `linear-gradient(to right, ${themeColors.accentBlue}, ${themeColors.accentPurple})` }}
-            >
-              Mayur.dev
-            </span>
+            <span className="text-lg font-semibold tracking-tight" style={{ color: themeColors.textMain }}>Mayur.dev</span>
           </a>
 
-          <div className="hidden md:flex items-center space-x-8 text-sm font-medium" style={{ color: themeColors.textMuted }}>
-            <a href="#about" className="hover:opacity-80 transition-opacity">About</a>
-            <a href="#services" className="hover:opacity-80 transition-opacity">Services</a>
-            <a href="#devices" className="hover:opacity-80 transition-opacity">For every screen</a>
-            <a href="#projects" className="hover:opacity-80 transition-opacity">Projects</a>
-            <a href="#contact" className="hover:opacity-80 transition-opacity">Contact</a>
+          <div className="hidden lg:flex items-center gap-1 rounded-full border p-1.5 text-sm font-medium" style={{ backgroundColor: themeColors.bgSecondary, borderColor: themeColors.border }}>
+            <a href="#about" className="rounded-full px-4 py-2 transition-colors hover:opacity-70" style={{ color: themeColors.textMuted }}>About</a>
+            <a href="#services" className="rounded-full px-4 py-2 transition-colors hover:opacity-70" style={{ color: themeColors.textMuted }}>Services</a>
+            <a href="#devices" className="rounded-full px-4 py-2 transition-colors hover:opacity-70" style={{ color: themeColors.textMuted }}>For every screen</a>
+            <a href="#projects" className="rounded-full px-4 py-2 transition-colors hover:opacity-70" style={{ color: themeColors.textMuted }}>Projects</a>
           </div>
 
-          <div className="hidden md:flex items-center">
+          <div className="hidden lg:flex items-center">
             <button
               onClick={() => handleWhatsApp("Navbar Direct Inquiry")}
-              className="flex items-center space-x-2 px-4 py-2 rounded-xl text-white font-medium shadow-lg transform hover:-translate-y-0.5 transition-all"
-              style={{ backgroundColor: themeColors.accentBlue }}
+              className="group flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:shadow-lg"
+              style={{ backgroundColor: themeColors.accentBlue, boxShadow: `0 8px 24px -12px ${themeColors.borderGlow}` }}
             >
-              <MessageCircle className="w-4 h-4" />
-              <span>Discuss a project</span>
+              <span>Discuss your project</span>
+              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </button>
           </div>
 
-          <div className="md:hidden flex items-center">
-            <button onClick={() => setIsOpen(!isOpen)} className="p-2 focus:outline-none" style={{ color: themeColors.textMain }}>
+          <div className="flex items-center gap-3 lg:hidden">
+            <a href="#contact" className="hidden sm:inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold text-white" style={{ backgroundColor: themeColors.accentBlue }}>
+              Start a project <ArrowUpRight className="h-4 w-4" />
+            </a>
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              aria-expanded={isOpen}
+              aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              className="flex h-11 w-11 items-center justify-center rounded-full border transition-transform active:scale-95"
+              style={{ color: themeColors.textMain, borderColor: themeColors.border, backgroundColor: themeColors.bgSecondary }}
+            >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
       </div>
 
-      {isOpen && (
-        <div className="md:hidden border-b px-4 pt-2 pb-6 space-y-3" style={{ backgroundColor: themeColors.bgSecondary, borderColor: themeColors.border }}>
-          <a href="#about" onClick={() => setIsOpen(false)} className="block py-2" style={{ color: themeColors.textMuted }}>About</a>
-          <a href="#services" onClick={() => setIsOpen(false)} className="block py-2" style={{ color: themeColors.textMuted }}>Services</a>
-          <a href="#devices" onClick={() => setIsOpen(false)} className="block py-2" style={{ color: themeColors.textMuted }}>Showcase</a>
-          <a href="#projects" onClick={() => setIsOpen(false)} className="block py-2" style={{ color: themeColors.textMuted }}>Projects</a>
-          <a href="#contact" onClick={() => setIsOpen(false)} className="block py-2" style={{ color: themeColors.textMuted }}>Contact</a>
+      <div className={`mobile-menu-shell lg:hidden ${isOpen ? 'mobile-menu-open' : ''}`} aria-hidden={!isOpen}>
+        <div className="mobile-menu-panel" style={{ backgroundColor: themeColors.accentBlue }}>
+          <div className="mb-8 flex items-center justify-between border-b border-white/25 pb-5">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/75">Explore Mayur.dev</span>
+            <span className="rounded-full border border-white/30 px-3 py-1 text-xs text-white/80">Menu</span>
+          </div>
+          <nav className="mobile-menu-links">
+            {[
+              ['About', '#about'],
+              ['Services', '#services'],
+              ['How it works', '#how-to-start'],
+              ['Projects', '#projects'],
+              ['Contact', '#contact']
+            ].map(([label, href], index) => (
+              <a
+                key={href}
+                href={href}
+                tabIndex={isOpen ? 0 : -1}
+                onClick={() => setIsOpen(false)}
+                className="mobile-menu-link"
+                style={{ color: '#FFFFFF', '--menu-index': index }}
+              >
+                <span>{label}</span>
+                <span className="mobile-menu-arrow"><ArrowRight className="h-5 w-5" /></span>
+              </a>
+            ))}
+          </nav>
           <button
-            onClick={() => handleWhatsApp("Mobile Menu Inquiry")}
-            className="w-full flex items-center justify-center space-x-2 py-2.5 rounded-xl text-white font-medium"
-            style={{ backgroundColor: themeColors.accentBlue }}
+            onClick={() => {
+              setIsOpen(false);
+              handleWhatsApp('Mobile Menu Inquiry');
+            }}
+            className="mobile-menu-cta mt-8 flex w-full items-center justify-center gap-3 rounded-2xl px-5 py-4 font-semibold"
+            style={{ backgroundColor: themeColors.bgPrimary, color: themeColors.accentBlue, '--menu-index': 5 }}
           >
-            <MessageCircle className="w-4 h-4" />
-            <span>Discuss a project</span>
+            <MessageCircle className="h-5 w-5" />
+            Let’s discuss your project
           </button>
+          <p className="mt-6 text-center text-xs text-white/75">Websites and software to help your business move forward.</p>
         </div>
-      )}
+      </div>
     </nav>
   );
 }

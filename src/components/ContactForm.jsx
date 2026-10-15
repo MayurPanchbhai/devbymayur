@@ -86,7 +86,7 @@ export default function ContactForm({ themeColors }) {
 
                 <button
                   type="submit"
-                  className="w-full py-4 rounded-xl text-white font-semibold shadow-lg flex items-center justify-center space-x-2 transition-all hover:opacity-90"
+                  className="w-full rounded-full py-4 text-white font-semibold shadow-lg flex items-center justify-center space-x-2 transition-all hover:opacity-90 hover:-translate-y-0.5"
                   style={{ backgroundColor: themeColors.accentBlue }}
                 >
                   <MessageCircle className="w-5 h-5" />
