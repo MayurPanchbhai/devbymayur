@@ -229,6 +229,5 @@ export const themes = {
   },
 };
 
-// Change this line to switch your theme instantly!
-// Options: themes.sunsetGold, themes.midnightBlue, themes.emeraldMatrix, themes.cyberpunk, themes.arcticFrost, themes.crimsonNight, themes.royalAmethyst, themes.oceanTeal, themes.minimalLight, themes.roseQuartz
-export const theme = themes.minimalLight;
+// This theme is shown first, then the site cycles through the available themes.
+export const theme = themes.roseQuartz;
