@@ -1,16 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useForm, ValidationError } from '@formspree/react';
 import { MessageCircle, CheckCircle2, Sparkles } from 'lucide-react';
 
 export default function ContactForm({ themeColors }) {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!formData.name || !formData.message) return;
-    const phone = "919000000000";
-    const text = encodeURIComponent(`Hi, my name is ${formData.name} (${formData.email}). Message: ${formData.message}`);
-    window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
-  };
+  const [state, handleSubmit] = useForm('mrperdoy');
 
   return (
     <section id="contact" className="py-20 relative">
@@ -44,31 +37,38 @@ export default function ContactForm({ themeColors }) {
           </div>
 
           <div className="lg:col-span-7">
-            <div className="border rounded-3xl p-8 shadow-xl relative" style={{ backgroundColor: themeColors.bgSecondary, borderColor: themeColors.border }}>
+            <div className="process-card border rounded-3xl p-8 shadow-xl relative" style={{ backgroundColor: themeColors.bgSecondary, borderColor: themeColors.border, '--process-accent': themeColors.accentBlue, '--process-glow': themeColors.borderGlow }}>
+              {state.succeeded ? (
+                <p className="rounded-xl border p-4 text-sm font-medium" style={{ color: themeColors.textMain, borderColor: themeColors.border, backgroundColor: themeColors.bgPrimary }} role="status">
+                  Thanks for reaching out! Your message has been sent.
+                </p>
+              ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
+                {state.errors && <p className="text-sm" style={{ color: themeColors.error || '#ef4444' }} role="alert">There was a problem sending your message. Please check the fields and try again.</p>}
                 <div>
                   <label className="block text-sm font-medium mb-2" style={{ color: themeColors.textMain }}>Your Name</label>
                   <input
                     type="text"
                     required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    name="name"
                     placeholder="Enter your name"
                     className="w-full rounded-xl border px-4 py-3 text-sm focus:outline-none focus:ring-2"
                     style={{ backgroundColor: themeColors.bgPrimary, color: themeColors.textMain, borderColor: themeColors.border, '--tw-ring-color': themeColors.accentBlue }}
                   />
+                  <ValidationError prefix="Name" field="name" errors={state.errors} />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium mb-2" style={{ color: themeColors.textMain }}>Email Address</label>
                   <input
                     type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="Enter your email (optional)"
+                    required
+                    name="email"
+                    placeholder="Enter your email"
                     className="w-full rounded-xl border px-4 py-3 text-sm focus:outline-none focus:ring-2"
                     style={{ backgroundColor: themeColors.bgPrimary, color: themeColors.textMain, borderColor: themeColors.border, '--tw-ring-color': themeColors.accentBlue }}
                   />
+                  <ValidationError prefix="Email" field="email" errors={state.errors} />
                 </div>
 
                 <div>
@@ -76,23 +76,25 @@ export default function ContactForm({ themeColors }) {
                   <textarea
                     required
                     rows={4}
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    name="message"
                     placeholder="Tell us about your business and what you want to improve..."
                     className="w-full resize-none rounded-xl border px-4 py-3 text-sm focus:outline-none focus:ring-2"
                     style={{ backgroundColor: themeColors.bgPrimary, color: themeColors.textMain, borderColor: themeColors.border, '--tw-ring-color': themeColors.accentBlue }}
                   ></textarea>
+                  <ValidationError prefix="Message" field="message" errors={state.errors} />
                 </div>
 
                 <button
                   type="submit"
+                  disabled={state.submitting}
                   className="w-full rounded-full py-4 text-white font-semibold shadow-lg flex items-center justify-center space-x-2 transition-all hover:opacity-90 hover:-translate-y-0.5"
-                  style={{ backgroundColor: themeColors.accentBlue }}
+                  style={{ backgroundColor: themeColors.accentBlue, opacity: state.submitting ? 0.7 : 1, cursor: state.submitting ? 'wait' : 'pointer' }}
                 >
                   <MessageCircle className="w-5 h-5" />
-                  <span>Send Message via WhatsApp</span>
+                  <span>{state.submitting ? 'Sending...' : 'Send Message'}</span>
                 </button>
               </form>
+              )}
             </div>
           </div>
         </div>

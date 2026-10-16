@@ -230,4 +230,4 @@ export const themes = {
 };
 
 // This theme is shown first, then the site cycles through the available themes.
-export const theme = themes.roseQuartz;
+export const theme = themes.minimalLight; //minimalLight;//cleanSlate

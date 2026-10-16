@@ -14,18 +14,21 @@ import Footer from "./components/Footer";
 
 export default function App() {
   const themeList = Object.values(themes);
-  const initialThemeIndex = Math.max(0, themeList.findIndex((availableTheme) => availableTheme.name === theme.name));
+  const initialThemeIndex = Math.max(
+    0,
+    themeList.findIndex((availableTheme) => availableTheme.name === theme.name),
+  );
   const [currentThemeIndex, setCurrentThemeIndex] = useState(initialThemeIndex);
   const currentTheme = themeList[currentThemeIndex];
   const currentColors = currentTheme.colors;
 
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      setCurrentThemeIndex((index) => (index + 1) % themeList.length);
-    }, 5000);
+  // useEffect(() => {
+  //   const timer = window.setInterval(() => {
+  //     setCurrentThemeIndex((index) => (index + 1) % themeList.length);
+  //   }, 5000);
 
-    return () => window.clearInterval(timer);
-  }, [themeList.length]);
+  //   return () => window.clearInterval(timer);
+  // }, [themeList.length]);
 
   return (
     <div
@@ -38,9 +41,9 @@ export default function App() {
       <Navbar themeColors={currentColors} />
       <main>
         <Hero themeColors={currentColors} />
-        <DeviceShowcase themeColors={currentColors} />
         <About themeColors={currentColors} />
         <Services themeColors={currentColors} />
+        <DeviceShowcase themeColors={currentColors} />
         <Projects themeColors={currentColors} />
         <HowToStart themeColors={currentColors} />
         <ContactForm themeColors={currentColors} />

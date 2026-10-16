@@ -12,7 +12,7 @@ export default function About({ themeColors }) {
                 className="absolute -inset-1 rounded-3xl blur-lg opacity-30"
                 style={{ backgroundImage: `linear-gradient(to right, ${themeColors.accentBlue}, ${themeColors.accentPurple})` }}
               ></div>
-              <div className="relative border rounded-3xl p-8 shadow-xl" style={{ backgroundColor: themeColors.bgSecondary, borderColor: themeColors.border }}>
+              <div className="process-card relative border rounded-3xl p-8 shadow-xl" style={{ backgroundColor: themeColors.bgSecondary, borderColor: themeColors.border, '--process-accent': themeColors.accentBlue, '--process-glow': themeColors.borderGlow }}>
                 <div 
                   className="w-16 h-16 rounded-2xl border flex items-center justify-center mb-6"
                   style={{ backgroundColor: `${themeColors.accentBlue}20`, borderColor: `${themeColors.accentBlue}40` }}
