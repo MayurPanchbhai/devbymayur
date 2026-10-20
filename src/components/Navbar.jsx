@@ -42,7 +42,7 @@ export default function Navbar({ themeColors }) {
             <span
               className="text-lg font-semibold tracking-tight"
               style={{ color: themeColors.textMain }}>
-              Mayur.dev
+              Symmify
             </span>
           </a>
 
@@ -128,7 +128,7 @@ export default function Navbar({ themeColors }) {
           style={{ backgroundColor: themeColors.accentBlue }}>
           <div className="mb-8 flex items-center justify-between border-b border-white/25 pb-5">
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/75">
-              Explore Mayur.dev
+              Explore Symmify
             </span>
             <span className="rounded-full border border-white/30 px-3 py-1 text-xs text-white/80">
               Menu
