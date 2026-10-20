@@ -34,11 +34,12 @@ export default function Footer({ themeColors }) {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 pb-10">
           <div className="sm:col-span-2">
             <a href="#" className="inline-flex items-center gap-2">
-              <span
-                className="w-9 h-9 rounded-lg flex items-center justify-center text-white font-bold"
-                style={{ backgroundColor: themeColors.accentBlue }}>
-                S
-              </span>
+              <img
+                src="/logo.png"
+                alt=""
+                aria-hidden="true"
+                className="h-10 w-10 object-contain"
+              />
               <span
                 className="text-lg font-bold"
                 style={{ color: themeColors.textMain }}>

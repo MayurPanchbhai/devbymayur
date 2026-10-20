@@ -5,7 +5,6 @@ import {
   Menu,
   X,
   MessageCircle,
-  Sparkles,
   ArrowUpRight,
   ArrowRight,
 } from "lucide-react";
@@ -30,17 +29,14 @@ export default function Navbar({ themeColors }) {
       }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-[76px] items-center justify-between gap-4">
-          <a href="#" className="flex items-center space-x-2 group">
-            <div
-              className="flex h-10 w-10 items-center justify-center rounded-full transition-transform group-hover:scale-105"
-              style={{
-                backgroundColor: `${themeColors.accentBlue}12`,
-                color: themeColors.accentBlue,
-              }}>
-              <Sparkles className="w-5 h-5" />
-            </div>
+          <a href="#" className="flex items-center group" aria-label="Symmify home">
+            <img
+              src="/logo.png"
+              alt="Symmify"
+              className="h-12 w-12 object-contain transition-transform group-hover:scale-105"
+            />
             <span
-              className="text-lg font-semibold tracking-tight"
+              className="ml-2 text-lg font-semibold tracking-tight"
               style={{ color: themeColors.textMain }}>
               Symmify
             </span>
