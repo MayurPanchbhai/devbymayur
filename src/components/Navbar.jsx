@@ -1,16 +1,12 @@
 /** @format */
 
 import React, { useState } from "react";
-import {
-  Menu,
-  X,
-  MessageCircle,
-  ArrowUpRight,
-  ArrowRight,
-} from "lucide-react";
+import { Menu, X, MessageCircle, ArrowUpRight, ArrowRight } from "lucide-react";
 
 export default function Navbar({ themeColors }) {
   const [isOpen, setIsOpen] = useState(false);
+  const sectionLink = (id) =>
+    `${window.location.pathname.replace(/\/$/, "") === "/projects" ? "/" : ""}#${id}`;
 
   const handleWhatsApp = (serviceName = "General Inquiry") => {
     const phone = "9325646874";
@@ -29,7 +25,10 @@ export default function Navbar({ themeColors }) {
       }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-[76px] items-center justify-between gap-4">
-          <a href="#" className="flex items-center group" aria-label="Symmify home">
+          <a
+            href="https://symmify.vercel.app/"
+            className="flex items-center group"
+            aria-label="Symmify home">
             <img
               src="/logo.png"
               alt="Symmify"
@@ -49,25 +48,25 @@ export default function Navbar({ themeColors }) {
               borderColor: themeColors.border,
             }}>
             <a
-              href="#about"
+              href={sectionLink("about")}
               className="rounded-full px-4 py-2 transition-colors hover:opacity-70"
               style={{ color: themeColors.textMuted }}>
               About
             </a>
             <a
-              href="#services"
+              href={sectionLink("services")}
               className="rounded-full px-4 py-2 transition-colors hover:opacity-70"
               style={{ color: themeColors.textMuted }}>
               Services
             </a>
             <a
-              href="#devices"
+              href={sectionLink("devices")}
               className="rounded-full px-4 py-2 transition-colors hover:opacity-70"
               style={{ color: themeColors.textMuted }}>
               For every screen
             </a>
             <a
-              href="#projects"
+              href={sectionLink("projects")}
               className="rounded-full px-4 py-2 transition-colors hover:opacity-70"
               style={{ color: themeColors.textMuted }}>
               Projects
@@ -89,7 +88,7 @@ export default function Navbar({ themeColors }) {
 
           <div className="flex items-center gap-3 lg:hidden">
             <a
-              href="#contact"
+              href={sectionLink("contact")}
               className="hidden sm:inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold text-white"
               style={{ backgroundColor: themeColors.accentBlue }}>
               Start a project <ArrowUpRight className="h-4 w-4" />
@@ -132,11 +131,11 @@ export default function Navbar({ themeColors }) {
           </div>
           <nav className="mobile-menu-links">
             {[
-              ["About", "#about"],
-              ["Services", "#services"],
-              ["How it works", "#how-to-start"],
-              ["Projects", "#projects"],
-              ["Contact", "#contact"],
+              ["About", sectionLink("about")],
+              ["Services", sectionLink("services")],
+              ["How it works", sectionLink("how-to-start")],
+              ["Projects", "/projects"],
+              ["Contact", sectionLink("contact")],
             ].map(([label, href], index) => (
               <a
                 key={href}

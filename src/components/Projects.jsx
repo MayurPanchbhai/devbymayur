@@ -1,38 +1,11 @@
 /** @format */
 
 import React from "react";
-import { Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
+import { projects } from "../data/projects";
 
-export default function Projects({ themeColors }) {
-  const projects = [
-    {
-      title: "Blox Hive",
-      image: "/projects/bloxhive.png",
-      imageAlt: "Screenshot of the Blox Hive gaming character store",
-      category: "Online platform",
-      description:
-        "A gaming character store where players can browse and buy characters and other in-game products.",
-      tech: ["Gaming store", "Digital products"],
-    },
-    {
-      title: "Job Application Automation Tool",
-      image: "/projects/job-automation.png",
-      imageAlt: "Screenshot of the job application automation tool",
-      category: "Business automation",
-      description:
-        "A tool designed to make repetitive email outreach faster and easier to manage.",
-      tech: ["Email workflow", "Automation"],
-    },
-    {
-      title: "Manufacturing Inventory Management System",
-      image: "/projects/manufacturing-inventory.png",
-      imageAlt: "Screenshot of the manufacturing inventory management system",
-      category: "Manufacturing software",
-      description:
-        "An inventory management system for manufacturers to track raw materials, monitor stock levels, and keep production organized.",
-      tech: ["Inventory tracking", "Production management"],
-    },
-  ];
+export default function Projects({ themeColors, projectList = projects, showAll = false, customerView = false }) {
+  const visibleProjects = showAll ? projectList : projectList.slice(0, 3);
 
   return (
     <section id="projects" className=" py-20 relative">
@@ -61,7 +34,7 @@ export default function Projects({ themeColors }) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
+          {visibleProjects.map((project, index) => (
             <div
               key={index}
               className="border process-card rounded-3xl p-6 flex flex-col justify-between group transition-all duration-300 shadow-xl hover:-translate-y-1"
@@ -113,31 +86,64 @@ export default function Projects({ themeColors }) {
                 <p
                   className="mt-3 text-sm leading-relaxed"
                   style={{ color: themeColors.textMuted }}>
-                  {project.description}
+                  {customerView ? project.customerDescription : project.description}
                 </p>
               </div>
 
-              <div
-                className="mt-6 border-t pt-6"
-                style={{ borderColor: themeColors.border }}>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tech.map((t, i) => (
-                    <span
-                      key={i}
-                      className="rounded-lg border px-2.5 py-1 text-xs"
-                      style={{
-                        backgroundColor: themeColors.bgPrimary,
-                        color: themeColors.textMuted,
-                        borderColor: themeColors.border,
-                      }}>
-                      {t}
-                    </span>
-                  ))}
+              {customerView ? (
+                project.link && (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-6 inline-flex w-fit items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+                    style={{ backgroundColor: themeColors.accentBlue }}>
+                    Take a look <ArrowRight className="h-4 w-4" />
+                  </a>
+                )
+              ) : (
+                <div
+                  className="mt-6 border-t pt-6"
+                  style={{ borderColor: themeColors.border }}>
+                  <div className="flex flex-wrap gap-2">
+                    {(project.tech || []).map((item, itemIndex) => (
+                      <span
+                        key={itemIndex}
+                        className="rounded-lg border px-2.5 py-1 text-xs"
+                        style={{
+                          backgroundColor: themeColors.bgPrimary,
+                          color: themeColors.textMuted,
+                          borderColor: themeColors.border,
+                        }}>
+                        {item}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
+              {!customerView && project.link && (
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-6 inline-flex w-fit items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+                  style={{ backgroundColor: themeColors.accentBlue }}>
+                  Visit project <ArrowRight className="h-4 w-4" />
+                </a>
+              )}
             </div>
           ))}
         </div>
+        {!showAll && (
+          <div className="mt-10 text-center">
+            <a
+              href="/projects"
+              className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+              style={{ backgroundColor: themeColors.accentBlue }}>
+              View all projects <ArrowRight className="h-4 w-4" />
+            </a>
+          </div>
+        )}
       </div>
     </section>
   );

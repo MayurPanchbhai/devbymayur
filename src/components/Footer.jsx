@@ -23,6 +23,8 @@ function InstagramIcon({ className, style }) {
 }
 
 export default function Footer({ themeColors }) {
+  const sectionLink = (id) =>
+    `${window.location.pathname.replace(/\/$/, "") === "/projects" ? "/" : ""}#${id}`;
   return (
     <footer
       className="border-t py-12"
@@ -53,7 +55,7 @@ export default function Footer({ themeColors }) {
               built to help your business move forward.
             </p>
             <a
-              href="#contact"
+              href={sectionLink("contact")}
               className="mt-5 inline-flex items-center gap-2 text-sm font-semibold"
               style={{ color: themeColors.accentBlue }}>
               Discuss a project <ArrowUpRight className="w-4 h-4" />
@@ -68,16 +70,16 @@ export default function Footer({ themeColors }) {
             <nav
               className="mt-4 flex flex-col items-start gap-3 text-sm"
               style={{ color: themeColors.textMuted }}>
-              <a href="#about" className="hover:opacity-75">
+              <a href={sectionLink("about")} className="hover:opacity-75">
                 About
               </a>
-              <a href="#services" className="hover:opacity-75">
+              <a href={sectionLink("services")} className="hover:opacity-75">
                 Services
               </a>
-              <a href="#projects" className="hover:opacity-75">
+              <a href="/projects" className="hover:opacity-75">
                 Projects
               </a>
-              <a href="#contact" className="hover:opacity-75">
+              <a href={sectionLink("contact")} className="hover:opacity-75">
                 Contact
               </a>
             </nav>
@@ -91,16 +93,16 @@ export default function Footer({ themeColors }) {
             <nav
               className="mt-4 flex flex-col items-start gap-3 text-sm"
               style={{ color: themeColors.textMuted }}>
-              <a href="#services" className="hover:opacity-75">
+              <a href={sectionLink("services")} className="hover:opacity-75">
                 Business websites
               </a>
-              <a href="#services" className="hover:opacity-75">
+              <a href={sectionLink("services")} className="hover:opacity-75">
                 Custom software
               </a>
-              <a href="#services" className="hover:opacity-75">
+              <a href={sectionLink("services")} className="hover:opacity-75">
                 Online stores & booking
               </a>
-              <a href="#contact" className="hover:opacity-75">
+              <a href={sectionLink("contact")} className="hover:opacity-75">
                 Request a consultation
               </a>
             </nav>

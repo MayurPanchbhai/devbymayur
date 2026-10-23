@@ -11,6 +11,7 @@ import Projects from "./components/Projects";
 import HowToStart from "./components/HowToStart";
 import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
+import ProjectsPage from "./components/ProjectsPage";
 
 export default function App() {
   const themeList = Object.values(themes);
@@ -21,6 +22,7 @@ export default function App() {
   const [currentThemeIndex, setCurrentThemeIndex] = useState(initialThemeIndex);
   const currentTheme = themeList[currentThemeIndex];
   const currentColors = currentTheme.colors;
+  const isProjectsPage = window.location.pathname.replace(/\/$/, "") === "/projects";
 
   // useEffect(() => {
   //   const timer = window.setInterval(() => {
@@ -40,12 +42,18 @@ export default function App() {
       }}>
       <Navbar themeColors={currentColors} />
       <main>
-        <Hero themeColors={currentColors} />
-        <About themeColors={currentColors} />
-        <Services themeColors={currentColors} />
-        <DeviceShowcase themeColors={currentColors} />
-        <Projects themeColors={currentColors} />
-        <HowToStart themeColors={currentColors} />
+        {isProjectsPage ? (
+          <ProjectsPage themeColors={currentColors} />
+        ) : (
+          <>
+            <Hero themeColors={currentColors} />
+            <About themeColors={currentColors} />
+            <Services themeColors={currentColors} />
+            <DeviceShowcase themeColors={currentColors} />
+            <Projects themeColors={currentColors} />
+            <HowToStart themeColors={currentColors} />
+          </>
+        )}
         <ContactForm themeColors={currentColors} />
       </main>
       <Footer themeColors={currentColors} />
