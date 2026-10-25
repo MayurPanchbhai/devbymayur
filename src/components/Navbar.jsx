@@ -46,28 +46,29 @@ export default function Navbar({ themeColors }) {
             style={{
               backgroundColor: themeColors.bgSecondary,
               borderColor: themeColors.border,
+              "--nav-accent": themeColors.accentBlue,
             }}>
             <a
               href={sectionLink("about")}
-              className="rounded-full px-4 py-2 transition-colors hover:opacity-70"
+              className="nav-link-pop rounded-full px-4 py-2"
               style={{ color: themeColors.textMuted }}>
               About
             </a>
             <a
               href={sectionLink("services")}
-              className="rounded-full px-4 py-2 transition-colors hover:opacity-70"
+              className="nav-link-pop rounded-full px-4 py-2"
               style={{ color: themeColors.textMuted }}>
               Services
             </a>
             <a
               href={sectionLink("devices")}
-              className="rounded-full px-4 py-2 transition-colors hover:opacity-70"
+              className="nav-link-pop rounded-full px-4 py-2"
               style={{ color: themeColors.textMuted }}>
               For every screen
             </a>
             <a
               href={sectionLink("projects")}
-              className="rounded-full px-4 py-2 transition-colors hover:opacity-70"
+              className="nav-link-pop rounded-full px-4 py-2"
               style={{ color: themeColors.textMuted }}>
               Projects
             </a>

@@ -4,6 +4,36 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Lightweight pop effect for the primary desktop navigation. */
+.nav-link-pop {
+  position: relative;
+  isolation: isolate;
+  transition: color 180ms ease, transform 220ms cubic-bezier(.2,.8,.2,1), background-color 180ms ease;
+}
+.nav-link-pop::after {
+  position: absolute;
+  right: 1rem;
+  bottom: .35rem;
+  left: 1rem;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 220ms cubic-bezier(.2,.8,.2,1);
+}
+.nav-link-pop:hover,
+.nav-link-pop:focus-visible {
+  z-index: 1;
+  outline: none;
+  background-color: color-mix(in srgb, var(--nav-accent, #2563eb) 10%, transparent);
+  color: var(--nav-accent, #2563eb) !important;
+  transform: translateY(-2px) scale(1.04);
+}
+.nav-link-pop:hover::after,
+.nav-link-pop:focus-visible::after { transform: scaleX(1); }
+
 /* Editorial light-and-ink visual direction from the supplied reference. */
 body {
   background: #f2f2f5;
