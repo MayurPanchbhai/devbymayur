@@ -135,7 +135,7 @@ export default function Navbar({ themeColors }) {
               ["About", sectionLink("about")],
               ["Services", sectionLink("services")],
               ["How it works", sectionLink("how-to-start")],
-              ["Projects", "/projects"],
+              ["Projects", sectionLink("projects")],
               ["Contact", sectionLink("contact")],
             ].map(([label, href], index) => (
               <a
