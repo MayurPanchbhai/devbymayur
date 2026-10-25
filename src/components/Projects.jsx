@@ -1,11 +1,26 @@
 /** @format */
 
-import React from "react";
+import React, { useRef } from "react";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { projects } from "../data/projects";
 
 export default function Projects({ themeColors, projectList = projects, showAll = false, customerView = false }) {
   const visibleProjects = showAll ? projectList : projectList.slice(0, 3);
+  const tiltCard = (event) => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const card = event.currentTarget;
+    const bounds = card.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width;
+    const y = (event.clientY - bounds.top) / bounds.height;
+    card.style.setProperty("--tilt-x", `${(0.5 - y) * 7}deg`);
+    card.style.setProperty("--tilt-y", `${(x - 0.5) * 9}deg`);
+    card.style.setProperty("--shine-x", `${x * 100}%`);
+    card.style.setProperty("--shine-y", `${y * 100}%`);
+  };
+  const resetTilt = (event) => {
+    event.currentTarget.style.setProperty("--tilt-x", "0deg");
+    event.currentTarget.style.setProperty("--tilt-y", "0deg");
+  };
 
   return (
     <section id="projects" className=" py-20 relative">
@@ -37,7 +52,9 @@ export default function Projects({ themeColors, projectList = projects, showAll 
           {visibleProjects.map((project, index) => (
             <div
               key={index}
-              className="border process-card rounded-3xl p-6 flex flex-col justify-between group transition-all duration-300 shadow-xl hover:-translate-y-1"
+              onPointerMove={tiltCard}
+              onPointerLeave={resetTilt}
+              className="depth-card border process-card rounded-3xl p-6 flex flex-col justify-between group transition-all duration-300 shadow-xl hover:-translate-y-1"
               style={{
                 backgroundColor: themeColors.bgSecondary,
                 borderColor: themeColors.border,

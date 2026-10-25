@@ -87,7 +87,7 @@ export default function ContactForm({ themeColors }) {
                 <button
                   type="submit"
                   disabled={state.submitting}
-                  className="w-full rounded-full py-4 text-white font-semibold shadow-lg flex items-center justify-center space-x-2 transition-all hover:opacity-90 hover:-translate-y-0.5"
+                  className="w-full rounded-full py-4 text-white font-semibold shadow-lg flex items-center justify-center space-x-2 transition-all hover:opacity-90 hover:-translate-y-0.5 disabled:animate-pulse"
                   style={{ backgroundColor: themeColors.accentBlue, opacity: state.submitting ? 0.7 : 1, cursor: state.submitting ? 'wait' : 'pointer' }}
                 >
                   <MessageCircle className="w-5 h-5" />

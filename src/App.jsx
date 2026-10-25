@@ -24,6 +24,26 @@ export default function App() {
   const currentColors = currentTheme.colors;
   const isProjectsPage = window.location.pathname.replace(/\/$/, "") === "/projects";
 
+  useEffect(() => {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (reduceMotion.matches) return undefined;
+
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("motion-visible");
+          observer.unobserve(entry.target);
+        }
+      }),
+      { threshold: 0.14, rootMargin: "0px 0px -48px 0px" },
+    );
+    document.querySelectorAll("main section, footer").forEach((section) => {
+      section.classList.add("motion-reveal");
+      observer.observe(section);
+    });
+    return () => observer.disconnect();
+  }, [isProjectsPage]);
+
   // useEffect(() => {
   //   const timer = window.setInterval(() => {
   //     setCurrentThemeIndex((index) => (index + 1) % themeList.length);
@@ -35,9 +55,10 @@ export default function App() {
   return (
     <div
       className="min-h-screen selection:bg-blue-600 selection:text-white"
+      data-theme={currentTheme.name}
       style={{
-        backgroundColor: currentColors.bgPrimary,
-        color: currentColors.textMain,
+        backgroundColor: "#f2f2f5",
+        color: "#181820",
         transition: "background-color 900ms ease, color 900ms ease",
       }}>
       <Navbar themeColors={currentColors} />

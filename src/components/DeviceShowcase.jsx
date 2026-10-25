@@ -26,6 +26,30 @@ import {
 
 export default function DeviceShowcase({ themeColors }) {
   const [activeDevice, setActiveDevice] = useState("mobile");
+  const tiltDevice = (event) => {
+    if (
+      event.pointerType === "touch" ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    )
+      return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width;
+    const y = (event.clientY - bounds.top) / bounds.height;
+    event.currentTarget.style.setProperty(
+      "--device-tilt-x",
+      `${(0.5 - y) * 9}deg`,
+    );
+    event.currentTarget.style.setProperty(
+      "--device-tilt-y",
+      `${(x - 0.5) * 12}deg`,
+    );
+    event.currentTarget.style.setProperty("--device-scale", "1.015");
+  };
+  const resetDeviceTilt = (event) => {
+    event.currentTarget.style.setProperty("--device-tilt-x", "0deg");
+    event.currentTarget.style.setProperty("--device-tilt-y", "0deg");
+    event.currentTarget.style.setProperty("--device-scale", "1");
+  };
 
   // Interactive mockup states
   const [mobileTab, setMobileTab] = useState("features");
@@ -75,7 +99,7 @@ export default function DeviceShowcase({ themeColors }) {
       id="devices"
       className="py-16 sm:py-20 border-y overflow-hidden"
       style={{
-        backgroundColor: themeColors.bgSecondary,
+        backgroundColor: "transparent",
         borderColor: themeColors.border,
       }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -103,35 +127,39 @@ export default function DeviceShowcase({ themeColors }) {
             and responds on every screen size.
           </p>
 
-          {/* Device Toggle Buttons */}
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <div
+            className="mt-6 flex justify-center gap-3"
+            role="tablist"
+            aria-label="Choose device preview">
             {[
               { id: "mobile", label: "Mobile View", icon: Smartphone },
               { id: "laptop", label: "Laptop View", icon: Laptop },
-            ].map((dev) => {
-              const Icon = dev.icon;
-              const isActive = activeDevice === dev.id;
+            ].map(({ id, label, icon: Icon }) => {
+              const selected = activeDevice === id;
               return (
                 <button
-                  key={dev.id}
+                  key={id}
+                  type="button"
+                  role="tab"
+                  aria-selected={selected}
                   onClick={() => {
-                    setActiveDevice(dev.id);
-                    setToastMessage(null);
+                    if (activeDevice !== id) {
+                      setToastMessage(null);
+                      setActiveDevice(id);
+                    }
                   }}
-                  className={`flex items-center space-x-2 px-5 py-2 sm:px-6 sm:py-2.5 rounded-xl font-medium text-xs sm:text-sm transition-all duration-300 border shadow-sm ${
-                    isActive ? "scale-105 shadow-md" : "hover:opacity-80"
-                  }`}
+                  className="device-tab flex items-center gap-2 rounded-full border px-5 py-2.5 text-xs font-semibold transition-all sm:text-sm"
                   style={{
-                    backgroundColor: isActive
+                    backgroundColor: selected
                       ? themeColors.accentBlue
                       : themeColors.bgPrimary,
-                    borderColor: isActive
+                    borderColor: selected
                       ? themeColors.accentBlue
                       : themeColors.border,
-                    color: isActive ? "#FFFFFF" : themeColors.textMuted,
+                    color: selected ? "#fff" : themeColors.textMuted,
                   }}>
-                  <Icon className="w-4 h-4" />
-                  <span>{dev.label}</span>
+                  <Icon className="h-4 w-4" />
+                  {label}
                 </button>
               );
             })}
@@ -139,11 +167,15 @@ export default function DeviceShowcase({ themeColors }) {
         </div>
 
         {/* Showcase Canvas */}
-        <div className="flex justify-center items-center min-h-[500px] sm:min-h-[540px] transition-all duration-500">
+        <div className="device-duo relative flex items-center justify-center min-h-[500px] sm:min-h-[540px] transition-all duration-500">
           {/* ================= MOBILE DEVICE MOCKUP ================= */}
-          {activeDevice === "mobile" && (
+          <div
+            onPointerMove={tiltDevice}
+            onPointerLeave={resetDeviceTilt}
+            className={`device-phone-wrap bg-transparent ${activeDevice === "mobile" ? "device-active " : "device-inactive"}`}
+            aria-hidden={activeDevice !== "mobile"}>
             <div
-              className="w-[300px] sm:w-[320px] h-[550px] rounded-[42px] border-[7px] p-2.5 relative flex flex-col justify-between shadow-2xl transition-all"
+              className=" bg-transparent w-[300px] sm:w-[320px] h-[550px] rounded-[42px] border-[7px] p-2.5 relative flex flex-col justify-between shadow-2xl transition-all"
               style={{
                 backgroundColor: themeColors.bgPrimary,
                 borderColor: "#1f2937",
@@ -670,10 +702,14 @@ export default function DeviceShowcase({ themeColors }) {
               {/* Home Bar */}
               <div className="w-28 h-1 bg-gray-500 rounded-full mx-auto mt-1.5"></div>
             </div>
-          )}
+          </div>
 
           {/* ================= LAPTOP DEVICE MOCKUP ================= */}
-          {activeDevice === "laptop" && (
+          <div
+            onPointerMove={tiltDevice}
+            onPointerLeave={resetDeviceTilt}
+            className={`device-laptop-wrap ${activeDevice === "laptop" ? "device-active" : "device-inactive"}`}
+            aria-hidden={activeDevice !== "laptop"}>
             <div
               className="w-full max-w-4xl rounded-2xl border-2 sm:border-4 p-2.5 sm:p-4 relative shadow-2xl transition-all"
               style={{
@@ -1127,7 +1163,7 @@ export default function DeviceShowcase({ themeColors }) {
               {/* Laptop Base Stand */}
               <div className="mt-3 mx-auto w-28 sm:w-36 h-1.5 sm:h-2 bg-gradient-to-r from-gray-400 via-gray-300 to-gray-400 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded-b-lg"></div>
             </div>
-          )}
+          </div>
         </div>
       </div>
     </section>
