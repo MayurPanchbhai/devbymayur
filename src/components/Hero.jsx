@@ -1,324 +1,159 @@
-/** @format */
+import React from 'react';
+import HeroShader from './HeroShader';
 
-import React, { useEffect, useState } from "react";
-import {
-  ArrowRight,
-  Sparkles,
-  MessageCircle,
-  BarChart3,
-  CircleCheck,
-  Globe2,
-} from "lucide-react";
-
-export default function Hero({ themeColors }) {
-  const [ready, setReady] = useState(false);
-  useEffect(() => {
-    const timer = window.setTimeout(() => setReady(true), 180);
-    return () => window.clearTimeout(timer);
-  }, []);
-  const handleWhatsApp = () => {
-    const phone = "919325646874";
-    const message = encodeURIComponent(
-      "Hi Mayur, I visited your portfolio website and want to discuss a project.",
-    );
-    window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
-  };
+export default function Hero({ onOpenContact }) {
+  const words = [
+    { text: "We", delay: "0.12s" },
+    { text: "build", delay: "0.20s" },
+    { text: "websites", delay: "0.29s" },
+    { text: "and", delay: "0.37s" },
+    { text: "software", delay: "0.46s" },
+    { text: "that", delay: "0.54s" },
+    { text: "actually", delay: "0.63s", isSerif: true },
+    { text: "grow", delay: "0.71s" },
+    { text: "your", delay: "0.80s" },
+    { text: "business.", delay: "0.88s" },
+  ];
 
   return (
-    <div
-      className={`hero-scene relative overflow-hidden pt-8 pb-16 lg:pt-12 lg:pb-24 ${ready ? "hero-ready" : "hero-loading"}`}
-      style={{ "--hero-accent": themeColors.accentBlue }}>
-      <div className="hero-orbit hero-orbit-one" aria-hidden="true" />
-      <div className="hero-orbit hero-orbit-two" aria-hidden="true" />
+    <section
+      data-screen-label="Hero"
+      className="hero-sec relative w-full overflow-hidden text-white flex flex-col justify-between"
+      style={{
+        background:
+          'radial-gradient(130% 120% at 82% 6%, #cbbdf8 0%, #8f75f2 22%, #6440ee 42%, #512ae5 58%, #2c1791 82%, #1a0d63 100%)',
+        minHeight: '620px',
+        paddingTop: '96px',
+        paddingBottom: '48px',
+        paddingLeft: '16px',
+        paddingRight: '16px',
+      }}
+    >
+      {/* Aurora glow orbs behind shader */}
       <div
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] blur-[140px] rounded-full pointer-events-none opacity-30"
-        style={{ backgroundColor: themeColors.accentBlue }}
-      />
+        aria-hidden="true"
+        className="hero-aurora absolute inset-0 z-0 overflow-hidden pointer-events-none"
+      >
+        <div
+          className="aur aur-a absolute -top-[18%] -left-[12%] w-[70%] h-[70%] rounded-full blur-[60px] sm:blur-[70px] opacity-85"
+          style={{
+            background:
+              'radial-gradient(circle, #8f75f2 0%, rgba(143,117,242,0) 68%)',
+          }}
+        />
+        <div
+          className="aur aur-b absolute -bottom-[22%] -right-[14%] w-[78%] h-[78%] rounded-full blur-[70px] sm:blur-[80px] opacity-90"
+          style={{
+            background:
+              'radial-gradient(circle, #512ae5 0%, rgba(81,42,229,0) 68%)',
+          }}
+        />
+        <div
+          className="aur aur-c absolute top-[12%] right-[4%] w-[52%] h-[52%] rounded-full blur-[60px] sm:blur-[72px] opacity-60"
+          style={{
+            background:
+              'radial-gradient(circle, #d6cbfe 0%, rgba(214,203,254,0) 68%)',
+          }}
+        />
+      </div>
+
+      {/* Interactive WebGL Shader Canvas */}
+      <HeroShader />
+
+      {/* Dark Vignette Overlay */}
       <div
-        className="absolute top-1/3 right-1/4 w-[350px] h-[350px] blur-[120px] rounded-full pointer-events-none opacity-20"
-        style={{ backgroundColor: themeColors.accentPurple }}
+        aria-hidden="true"
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          background:
+            'linear-gradient(180deg, rgba(26,13,99,0.2) 0%, rgba(26,13,99,0) 35%, rgba(26,13,99,0.45) 100%)',
+        }}
       />
 
-      <div className="hero-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="hero-editorial-grid grid items-center gap-10 lg:grid-cols-[.8fr_1.2fr] lg:gap-4">
-          <div className="hero-copy relative z-10 max-w-xl py-8 lg:py-16">
-            <div
-              className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border text-xs font-medium mb-6"
-              style={{
-                backgroundColor: `${themeColors.accentBlue}15`,
-                borderColor: `${themeColors.accentBlue}40`,
-                color: themeColors.accentBlue,
-              }}>
-              <Sparkles className="w-4 h-4" />
-              <span>Digital solutions for growing businesses</span>
-            </div>
-
-            <h1
-              className="hero-headline text-5xl sm:text-6xl lg:text-[5.5rem] font-semibold tracking-[-0.065em] max-w-4xl leading-[.98]"
-              style={{ color: themeColors.textMain }}>
-              Grow your business with{" "}
-              <span
-                className="bg-clip-text text-transparent"
-                style={{
-                  backgroundImage: `linear-gradient(to right, ${themeColors.accentBlue}, ${themeColors.accentPurple})`,
-                }}>
-                smart digital solutions.
-              </span>
-            </h1>
-
-            <p
-              className="mt-6 text-base sm:text-lg max-w-md font-normal leading-relaxed"
-              style={{ color: themeColors.textMuted }}>
-              Websites and practical software designed around your customers,
-              your workflow, and the next stage of your growth.
-            </p>
-
-            <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row">
-              <a
-                href="#contact"
-                className="group flex w-full items-center justify-center space-x-2 rounded-full px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl sm:w-auto"
-                style={{
-                  backgroundImage: `linear-gradient(to right, ${themeColors.accentBlue}, ${themeColors.accentPurple})`,
-                }}>
-                <span>Tell Us About Your Project</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
-
-              <button
-                onClick={handleWhatsApp}
-                className="flex w-full items-center justify-center space-x-2 rounded-full border px-6 py-3.5 text-sm font-medium transition-all hover:-translate-y-0.5 hover:shadow-md sm:w-auto"
-                style={{
-                  backgroundColor: themeColors.bgSecondary,
-                  borderColor: themeColors.border,
-                  color: themeColors.textMain,
-                }}>
-                <MessageCircle
-                  className="w-5 h-5"
-                  style={{ color: themeColors.accentBlue }}
-                />
-                <span>Chat About Your Business</span>
-              </button>
-            </div>
-
-            <div
-              className="mt-10 flex items-center gap-5 text-xs"
-              style={{ color: themeColors.textMuted }}>
-              <span className="flex -space-x-2">
-                <i
-                  className="h-7 w-7 rounded-full border-2"
-                  style={{
-                    background: themeColors.accentPurple,
-                    borderColor: themeColors.bgPrimary,
-                  }}
-                />
-                <i
-                  className="h-7 w-7 rounded-full border-2"
-                  style={{
-                    background: themeColors.accentBlue,
-                    borderColor: themeColors.bgPrimary,
-                  }}
-                />
-                <i
-                  className="h-7 w-7 rounded-full border-2 bg-white"
-                  style={{ borderColor: themeColors.bgPrimary }}
-                />
-              </span>
-              <span>
-                <b style={{ color: themeColors.textMain }}>Built with you</b>
-                <br />
-                From first idea to launch
-              </span>
-            </div>
+      {/* Centered Hero Content */}
+      <div className="relative z-10 flex-1 flex items-center justify-center py-8 sm:py-14 md:py-20">
+        <div className="max-w-[860px] text-center mx-auto w-full">
+          {/* Subtle Pill Tag */}
+          <div
+            className="reveal inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[11px] sm:text-xs md:text-sm font-medium text-white mb-5 sm:mb-7 shadow-sm"
+            style={{ animationDelay: '0.05s' }}
+          >
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span>Available for new projects &amp; consultations</span>
           </div>
-          <div className="hero-visual relative mx-auto w-full max-w-2xl lg:-mr-10">
-            <div
-              className="hero-platform"
-              style={{
-                background: `linear-gradient(145deg, ${themeColors.bgSecondary}, ${themeColors.bgPrimary})`,
-                borderColor: themeColors.border,
-              }}
-            />
-            <div
-              className="hero-dashboard"
-              style={{
-                backgroundColor: themeColors.bgSecondary,
-                borderColor: themeColors.border,
-              }}>
-              <div
-                className="flex items-center justify-between border-b px-4 py-3"
-                style={{ borderColor: themeColors.border }}>
-                <span
-                  className="flex items-center gap-2 text-xs font-semibold"
-                  style={{ color: themeColors.textMain }}>
-                  <span
-                    className="h-2 w-2 rounded-full"
-                    style={{ backgroundColor: themeColors.accentBlue }}
-                  />{" "}
-                  Your business, online
-                </span>
-                <span
-                  className="text-[10px]"
-                  style={{ color: themeColors.textMuted }}>
-                  LIVE PREVIEW
-                </span>
-              </div>
-              <div className="grid grid-cols-[1.2fr_.8fr] gap-3 p-3 sm:gap-4 sm:p-5">
-                <div
-                  className="rounded-2xl p-4 sm:p-5"
-                  style={{ backgroundColor: themeColors.bgPrimary }}>
-                  <span
-                    className="text-[10px] uppercase tracking-[.18em]"
-                    style={{ color: themeColors.textMuted }}>
-                    Growth overview
-                  </span>
-                  <div
-                    className="mt-4 text-2xl font-semibold"
-                    style={{ color: themeColors.textMain }}>
-                    More room
-                    <br />
-                    to grow.
-                  </div>
-                  <div className="mt-6 flex h-20 items-end gap-2">
-                    {[35, 48, 39, 62, 56, 78, 68, 100].map((height, index) => (
-                      <i
-                        key={index}
-                        className="chart-bar flex-1 rounded-t-md"
-                        style={{
-                          height: `${height}%`,
-                          background: `linear-gradient(to top, ${themeColors.accentBlue}, ${themeColors.accentPurple})`,
-                          animationDelay: `${index * 70}ms`,
-                        }}
-                      />
-                    ))}
-                  </div>
-                </div>
-                <div className="flex flex-col gap-3">
-                  <div
-                    className="hero-float-card rounded-2xl border p-3 sm:p-4"
-                    style={{
-                      borderColor: themeColors.border,
-                      backgroundColor: themeColors.bgPrimary,
-                    }}>
-                    <div className="flex items-center justify-between">
-                      <Globe2
-                        className="h-4 w-4"
-                        style={{ color: themeColors.accentBlue }}
-                      />
-                      <CircleCheck className="h-3.5 w-3.5 text-emerald-400" />
-                    </div>
-                    <p
-                      className="mt-5 text-xs font-semibold"
-                      style={{ color: themeColors.textMain }}>
-                      Website ready
-                    </p>
-                    <p
-                      className="mt-1 text-[10px]"
-                      style={{ color: themeColors.textMuted }}>
-                      Made for every screen
-                    </p>
-                  </div>
-                  <div
-                    className="hero-float-card rounded-2xl p-3 sm:p-4"
-                    style={{
-                      background: `linear-gradient(145deg, ${themeColors.accentBlue}, ${themeColors.accentPurple})`,
-                    }}>
-                    <BarChart3 className="h-4 w-4 text-white" />
-                    <p className="mt-4 text-xs font-semibold text-white">
-                      Built to move you forward
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              className="hero-float-chip hero-chip-one"
-              style={{
-                backgroundColor: themeColors.bgSecondary,
-                color: themeColors.textMain,
-                borderColor: themeColors.border,
-              }}>
-              <CircleCheck className="h-4 w-4 text-emerald-400" /> Simple.
-              Useful. Yours.
-            </div>
-            <div
-              className="hero-float-chip hero-chip-two"
-              style={{
-                backgroundColor: themeColors.accentBlue,
-                color: "#fff",
-              }}>
-              <Sparkles className="h-4 w-4" /> Made to grow
-            </div>
+
+          <h1 className="m-0 text-[30px] xs:text-[36px] sm:text-[48px] md:text-[62px] lg:text-[72px] leading-[1.06] font-semibold tracking-[-0.03em] drop-shadow-sm px-1">
+            {words.map((w, index) => (
+              <span
+                key={index}
+                className={`hw mr-1.5 sm:mr-3 inline-block ${
+                  w.isSerif ? 'font-serif italic font-normal text-[#f3f0ff]' : ''
+                }`}
+                style={{ animationDelay: w.delay }}
+              >
+                {w.text}
+              </span>
+            ))}
+          </h1>
+
+          <div
+            className="reveal hero-ctas flex flex-col sm:flex-row gap-3 sm:gap-4 mt-7 sm:mt-10 justify-center items-center w-full max-w-sm sm:max-w-none mx-auto"
+            style={{ animationDelay: '1.05s' }}
+          >
+            <button
+              onClick={onOpenContact}
+              className="w-full sm:w-auto group cursor-pointer inline-flex items-center justify-center gap-2.5 h-[48px] sm:h-[52px] bg-white text-[#17122e] rounded-full pl-6 pr-2.5 text-[14px] sm:text-[15px] font-semibold hover:bg-white/95 transition-all shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95"
+            >
+              <span>Start a project</span>
+              <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#512ae5] text-white flex items-center justify-center transition-transform duration-300 group-hover:rotate-45">
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3 11L11 3M11 3H4.5M11 3V9.5"
+                    stroke="#fff"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
+            </button>
+
+            <a
+              href="#work"
+              className="w-full sm:w-auto inline-flex items-center justify-center h-[48px] sm:h-[52px] px-6 sm:px-7 rounded-full text-[14px] sm:text-[15px] font-medium bg-white/10 hover:bg-white/15 text-white border border-white/25 transition-all backdrop-blur-sm"
+            >
+              See our work
+            </a>
           </div>
         </div>
-        {/* <div
-          className="mt-16 hidden grid-cols-2 gap-3 sm:grid md:grid-cols-4 sm:gap-6 max-w-4xl mx-auto pt-10"
-          style={{ borderColor: themeColors.border }}>
-          <div
-            className="hero-benefit  text-center rounded-2xl px-2 py-3 sm:px-4 sm:py-5"
-            tabIndex="0"
-            style={{
-              "--hover-tint": `${themeColors.accentBlue}10`,
-              "--process-accent": themeColors.accentBlue,
-              "--process-glow": themeColors.borderGlow,
-            }}>
-            <div
-              className="text-xl sm:text-3xl font-bold"
-              style={{ color: themeColors.textMain }}>
-              Websites
-            </div>
-            <div
-              className="text-xs sm:text-sm mt-1"
-              style={{ color: themeColors.textMuted }}>
-              Made for your customers
-            </div>
-          </div>
-          <div
-            className="hero-benefit text-center rounded-2xl px-2 py-3 sm:px-4 sm:py-5"
-            tabIndex="0"
-            style={{ "--hover-tint": `${themeColors.accentBlue}10` }}>
-            <div
-              className="text-xl sm:text-3xl font-bold"
-              style={{ color: themeColors.textMain }}>
-              Software
-            </div>
-            <div
-              className="text-xs sm:text-sm mt-1"
-              style={{ color: themeColors.textMuted }}>
-              Built around your needs
-            </div>
-          </div>
-          <div
-            className="hero-benefit text-center rounded-2xl px-2 py-3 sm:px-4 sm:py-5"
-            tabIndex="0"
-            style={{ "--hover-tint": `${themeColors.accentBlue}10` }}>
-            <div
-              className="text-xl sm:text-3xl font-bold"
-              style={{ color: themeColors.textMain }}>
-              Business-first
-            </div>
-            <div
-              className="text-xs sm:text-sm mt-1"
-              style={{ color: themeColors.textMuted }}>
-              Focused on real problems
-            </div>
-          </div>
-          <div
-            className="hero-benefit text-center rounded-2xl px-2 py-3 sm:px-4 sm:py-5"
-            tabIndex="0"
-            style={{ "--hover-tint": `${themeColors.accentBlue}10` }}>
-            <div
-              className="text-xl sm:text-3xl font-bold"
-              style={{ color: themeColors.textMain }}>
-              Personal
-            </div>
-            <div
-              className="text-xs sm:text-sm mt-1"
-              style={{ color: themeColors.textMuted }}>
-              Clear, direct communication
-            </div>
-          </div>
-        </div> */}
       </div>
-    </div>
+
+      {/* Floating WhatsApp Action Button */}
+      <a
+        href="https://wa.me/919325646874"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat with Symmify on WhatsApp"
+        className="wa-fab fixed right-4 bottom-4 sm:right-6 sm:bottom-6 z-30 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all cursor-pointer"
+      >
+        <svg
+          width="26"
+          height="26"
+          viewBox="0 0 24 24"
+          fill="#fff"
+          aria-hidden="true"
+          className="sm:w-[30px] sm:h-[30px]"
+        >
+          <path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.6-.92-2.19-.24-.58-.48-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.03 1.01-1.03 2.46 0 1.45 1.05 2.85 1.2 3.05.15.2 2.07 3.24 5.02 4.42 2.95 1.18 2.95.79 3.48.74.53-.05 1.73-.71 1.98-1.39.25-.68.25-1.26.17-1.39-.07-.12-.27-.19-.57-.34Z" />
+          <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.27-1.38a9.87 9.87 0 0 0 4.77 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.83 9.83 0 0 0 12.04 2Zm0 18.08a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.12.82.83-3.05-.19-.31a8.2 8.2 0 0 1-1.26-4.37c0-4.54 3.7-8.23 8.23-8.23a8.18 8.18 0 0 1 5.82 2.41 8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.22-8.24 8.22Z" />
+        </svg>
+      </a>
+    </section>
   );
 }

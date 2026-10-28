@@ -227,7 +227,24 @@ export const themes = {
       error: "#FDA4AF",
     },
   },
+  batmol: {
+    name: "Bat Mol",
+    colors: {
+      bgPrimary: "#FFFFFF",
+      bgSecondary: "#FFFFFF",
+      bgCard: "#FFFFFF",
+      accentBlue: "#000000",
+      accentPurple: "#000000",
+      accentHover: "#000000",
+      textMain: "#000000",
+      textMuted: "#000000",
+      border: "#E5E7EB",
+      borderGlow: "rgba(37, 99, 235, 0.12)",
+      success: "#000000",
+      error: "#DC2626",
+    },
+  },
 };
 
 // This theme is shown first, then the site cycles through the available themes.
-export const theme = themes.minimalLight; //minimalLight;//cleanSlate
+export const theme = themes.batmol; //minimalLight;//cleanSlate

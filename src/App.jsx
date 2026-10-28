@@ -1,83 +1,136 @@
-/** @format */
-
-import React, { useEffect, useState } from "react";
-import { theme, themes } from "./utils/theme";
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import DeviceShowcase from "./components/DeviceShowcase";
-import About from "./components/About";
-import Services from "./components/Services";
-import Projects from "./components/Projects";
-import HowToStart from "./components/HowToStart";
-import ContactForm from "./components/ContactForm";
-import Footer from "./components/Footer";
-import ProjectsPage from "./components/ProjectsPage";
+import React, { useEffect, useState } from 'react';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import Trust from './components/Trust';
+import Capabilities from './components/Capabilities';
+import Services from './components/Services';
+import Work from './components/Work';
+import Process from './components/Process';
+import Testimonials from './components/Testimonials';
+import Closing from './components/Closing';
+import ContactModal from './components/ContactModal';
 
 export default function App() {
-  const themeList = Object.values(themes);
-  const initialThemeIndex = Math.max(
-    0,
-    themeList.findIndex((availableTheme) => availableTheme.name === theme.name),
-  );
-  const [currentThemeIndex, setCurrentThemeIndex] = useState(initialThemeIndex);
-  const currentTheme = themeList[currentThemeIndex];
-  const currentColors = currentTheme.colors;
-  const isProjectsPage = window.location.pathname.replace(/\/$/, "") === "/projects";
+  const [isContactOpen, setIsContactOpen] = useState(false);
 
   useEffect(() => {
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (reduceMotion.matches) return undefined;
+    // Check reduced motion preference
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
 
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("motion-visible");
-          observer.unobserve(entry.target);
-        }
-      }),
-      { threshold: 0.14, rootMargin: "0px 0px -48px 0px" },
-    );
-    document.querySelectorAll("main section, footer").forEach((section) => {
-      section.classList.add("motion-reveal");
-      observer.observe(section);
-    });
-    return () => observer.disconnect();
-  }, [isProjectsPage]);
+    document.documentElement.classList.add('js-motion');
 
-  // useEffect(() => {
-  //   const timer = window.setInterval(() => {
-  //     setCurrentThemeIndex((index) => (index + 1) % themeList.length);
-  //   }, 5000);
+    // Scroll reveal observer
+    const groups = new Map();
+    function reveal(el) {
+      if (el.classList.contains('in')) return;
+      let delay = 0;
+      if (el.hasAttribute('data-stagger')) {
+        const i = groups.get(el.parentElement) || 0;
+        groups.set(el.parentElement, i + 1);
+        delay = Math.min(i, 4) * 90;
+      }
+      el.style.animationDelay = `${delay}ms`;
+      el.classList.add('in');
+    }
 
-  //   return () => window.clearInterval(timer);
-  // }, [themeList.length]);
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        const vh = window.innerHeight || 800;
+        document.querySelectorAll('[data-reveal]:not(.in)').forEach((node) => {
+          const r = node.getBoundingClientRect();
+          if (r.top < vh * 0.92 && r.bottom > -80) {
+            reveal(node);
+          }
+        });
+      });
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    onScroll();
+
+    // Attach card hover tracks
+    const attachCardTracks = () => {
+      if (!window.matchMedia || !window.matchMedia('(pointer: fine)').matches) return;
+      document.querySelectorAll('.card-hov:not([data-ptr])').forEach((card) => {
+        card.setAttribute('data-ptr', '1');
+        const track = document.createElement('div');
+        track.className = 'card-track';
+        track.setAttribute('aria-hidden', 'true');
+        card.appendChild(track);
+        card.addEventListener('pointermove', (e) => {
+          const r = card.getBoundingClientRect();
+          track.style.transform = `translate3d(${e.clientX - r.left}px, ${e.clientY - r.top}px, 0)`;
+        }, { passive: true });
+      });
+    };
+
+    attachCardTracks();
+    const interval = setInterval(onScroll, 300);
+    const trackInterval = setInterval(attachCardTracks, 500);
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      clearInterval(interval);
+      clearInterval(trackInterval);
+    };
+  }, []);
 
   return (
-    <div
-      className="min-h-screen selection:bg-blue-600 selection:text-white"
-      data-theme={currentTheme.name}
-      style={{
-        backgroundColor: "#f2f2f5",
-        color: "#181820",
-        transition: "background-color 900ms ease, color 900ms ease",
-      }}>
-      <Navbar themeColors={currentColors} />
-      <main>
-        {isProjectsPage ? (
-          <ProjectsPage themeColors={currentColors} />
-        ) : (
-          <>
-            <Hero themeColors={currentColors} />
-            <About themeColors={currentColors} />
-            <Services themeColors={currentColors} />
-            <DeviceShowcase themeColors={currentColors} />
-            <Projects themeColors={currentColors} />
-            <HowToStart themeColors={currentColors} />
-          </>
-        )}
-        <ContactForm themeColors={currentColors} />
-      </main>
-      <Footer themeColors={currentColors} />
+    <div className="relative w-full min-h-screen bg-[#f2f0f6] text-[#17122e] overflow-x-hidden">
+      {/* Ambient background glowing orbs */}
+      <div
+        aria-hidden="true"
+        className="orb fixed top-[1100px] -left-[180px] w-[520px] h-[520px] rounded-full pointer-events-none z-0"
+        style={{
+          background:
+            'radial-gradient(circle, rgba(143,117,242,0.15) 0%, rgba(143,117,242,0) 70%)',
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="orb fixed top-[2400px] -right-[220px] w-[600px] h-[600px] rounded-full pointer-events-none z-0"
+        style={{
+          background:
+            'radial-gradient(circle, rgba(81,42,229,0.12) 0%, rgba(81,42,229,0) 70%)',
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="orb fixed top-[3900px] -left-[120px] w-[460px] h-[460px] rounded-full pointer-events-none z-0"
+        style={{
+          background:
+            'radial-gradient(circle, rgba(143,117,242,0.14) 0%, rgba(143,117,242,0) 70%)',
+        }}
+      />
+
+      {/* Main page content container */}
+      <div className="relative z-10 w-full flex flex-col">
+        <Navbar onOpenContact={() => setIsContactOpen(true)} />
+        <main>
+          <Hero onOpenContact={() => setIsContactOpen(true)} />
+          <Trust />
+          <Capabilities />
+          <Services onOpenContact={() => setIsContactOpen(true)} />
+          <Work onOpenContact={() => setIsContactOpen(true)} />
+          <Process />
+          <Testimonials />
+          <Closing onOpenContact={() => setIsContactOpen(true)} />
+        </main>
+      </div>
+
+      {/* Project inquiry / Contact modal */}
+      <ContactModal
+        isOpen={isContactOpen}
+        onClose={() => setIsContactOpen(false)}
+      />
     </div>
   );
 }
