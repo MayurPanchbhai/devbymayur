@@ -243,7 +243,7 @@ export default function ContactModal({ isOpen, onClose }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs font-semibold text-[#25D366] hover:underline inline-flex items-center gap-1">
-                  WhatsApp (+91 93256 46874) ↗
+                  WhatsApp ↗
                 </a>
               </div>
             </form>

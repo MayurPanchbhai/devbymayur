@@ -5,16 +5,27 @@ import React, { useRef, useState } from "react";
 // Only Symmify's actual projects
 // CHANGED: shorter categories and descriptions, and 2 tags per project (less content)
 const myProjects = [
-  // {
-  //   id: "symmify-jewellery-2",
-  //   category: "E-commerce · Showcase",
-  //   title: "Symmify Jewellery Showcase",
-  //   desc: "A jewellery showcase site with seasonal collections and a simple enquiry flow.",
-  //   tags: ["E-commerce", "Responsive"],
-  //   image: "/projects/fdjfdf.png", // laptop / desktop image (square crop works best)
-  //   mobileImage: "/projects/fdjfdf-mobile.png", // phone image (wide crop works best)
-  //   link: "https://symmifyjewellery2.vercel.app/",
-  // },
+  {
+    id: "job-automation",
+    category: "Automation · Workflow",
+    title: "Outreach & Application Automator",
+    desc: "A tool that makes email outreach and application follow-ups faster.",
+    tags: ["Automation", "Productivity"],
+    image: "/projects/OutreachFlow Automation Dashboard.png",
+    mobileImage: "",
+    link: "",
+  },
+  {
+    id: "symmify-jewellery-2",
+    category: "E-commerce · Showcase",
+    title: "Symmify Jewellery Showcase",
+    desc: "A jewellery showcase site with seasonal collections and a simple enquiry flow.",
+    tags: ["E-commerce", "Responsive"],
+    image:
+      "/projects/Gold Crystal Leaf Bracelet - Adjustable Dainty Gift Jewelry.jfif", // laptop / desktop image (square crop works best)
+    mobileImage: "", // phone image (wide crop works best)
+    link: "https://symmifyjewellery2.vercel.app/",
+  },
   {
     id: "bloxhive",
     category: "Marketplace · Gaming",
@@ -22,7 +33,7 @@ const myProjects = [
     desc: "An online store for gaming characters and digital products with fast delivery.",
     tags: ["Digital store", "Web platform"],
     image: "/projects/b_make_this_img_make_s.webp",
-    mobileImage: "/projects/bloxhive-mobile.png",
+    mobileImage: "",
     link: "",
   },
   {
@@ -32,29 +43,20 @@ const myProjects = [
     desc: "Inventory tracking for manufacturers, from raw materials to stock alerts.",
     tags: ["Operations", "React"],
     image: "/projects/manufacturing-inventory-lp.webp",
-    mobileImage: "/projects/manufacturing-inventory.png",
+    mobileImage: "",
     link: "",
   },
-  {
-    id: "job-automation",
-    category: "Automation · Workflow",
-    title: "Outreach & Application Automator",
-    desc: "A tool that makes email outreach and application follow-ups faster.",
-    tags: ["Automation", "Productivity"],
-    image: "/projects/job-automation.png",
-    mobileImage: "/projects/job-automation-mobile.png",
-    link: "",
-  },
-  {
-    id: "personal-brand",
-    category: "Portfolio · Creative",
-    title: "Personal Brand Experience",
-    desc: "A personal brand site with smooth motion and a clear call to action.",
-    tags: ["Creative web", "Motion"],
-    image: "/projects/personal-brand.png",
-    mobileImage: "/projects/personal-brand-mobile.png",
-    link: "",
-  },
+
+  // {
+  //   id: "personal-brand",
+  //   category: "Portfolio · Creative",
+  //   title: "Personal Brand Experience",
+  //   desc: "A personal brand site with smooth motion and a clear call to action.",
+  //   tags: ["Creative web", "Motion"],
+  //   image: "/projects/personal-brand.png",
+  //   mobileImage: "/projects/personal-brand-mobile.png",
+  //   link: "",
+  // },
   {
     id: "symmify-jewellery-1",
     category: "E-commerce · Store",
@@ -62,23 +64,22 @@ const myProjects = [
     desc: "A React storefront for a luxury jewellery brand with mobile-first product pages.",
     tags: ["E-commerce", "React"],
     image: "/projects/b_generate_high_qulity.webp",
-    mobileImage: "/projects/symmifyjewellery.vercel.app_dfd-mobile.png",
+    mobileImage: "",
     link: "https://symmifyjewellery.vercel.app/",
   },
 ];
 
 export default function Work({ onOpenContact }) {
   const [isPaused, setIsPaused] = useState(false);
-  const CAROUSEL_SECONDS = 20;
+  const CAROUSEL_SECONDS = 85;
 
   const renderCard = (proj, key) => (
     <div
       key={key}
-      // CHANGED: smaller padding (p-2), smaller gap, wider card, image column wider than text column
-      className="work-card card-hov flex-none w-[88vw] sm:w-[480px] md:w-[620px] lg:w-[700px] max-w-[700px] bg-white border border-[#e6e0f6] rounded-[20px] sm:rounded-[24px] p-5  grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-3 sm:gap-6 items-center shadow-sm select-none">
-      {/* Project Image Preview (CHANGED: taller on phones, bigger on laptops) */}
-      <div className="relative w-full h-[240px] sm:h-[280px] md:h-auto md:aspect-[1/1.08] rounded-[14px] sm:rounded-[18px] overflow-hidden bg-[#eee8fb] border border-[#e6e0f6]/60">
-        {/* Phones (under 768px) get the mobile image, laptops get the main image */}
+      // REFINED: Adjusted width classes for a more balanced look relative to screen width
+      className="work-card card-hov flex-none w-[85vw] sm:w-[450px] md:w-[580px] lg:w-[660px] max-w-[660px] bg-white border border-[#e6e0f6] rounded-[20px] sm:rounded-[24px] p-4 sm:p-5 grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-4 sm:gap-6 items-center shadow-sm select-none">
+      {/* Project Image Preview */}
+      <div className="relative w-full h-[220px] sm:h-[260px] md:h-auto md:aspect-[1/1.08] rounded-[14px] sm:rounded-[18px] overflow-hidden bg-[#eee8fb] border border-[#e6e0f6]/60">
         <picture>
           {proj.mobileImage && (
             <source media="(max-width: 767px)" srcSet={proj.mobileImage} />
@@ -92,10 +93,8 @@ export default function Work({ onOpenContact }) {
               const img = e.currentTarget;
               const sources = img.parentElement.querySelectorAll("source");
               if (sources.length) {
-                // mobile image missing: remove it so the laptop image loads instead
                 sources.forEach((s) => s.remove());
               } else {
-                // laptop image missing too: hide it
                 img.style.display = "none";
               }
             }}
@@ -103,14 +102,13 @@ export default function Work({ onOpenContact }) {
         </picture>
       </div>
 
-      {/* Project Details (CHANGED: less padding) */}
-      <div className="flex flex-col self-stretch  justify-between px-1 pb-1 sm:pr-3 md:py-2">
-        <div className="gappind flex flex-col gap-4 py-2">
+      {/* Project Details */}
+      <div className="flex flex-col self-stretch justify-between px-1 pb-1 sm:pr-3 md:py-2">
+        <div className="flex flex-col gap-3 sm:gap-4 py-2">
           <span className="text-[13px] sm:text-[14px] text-[#7b7494]">
             {proj.category}
           </span>
-          {/* CHANGED: slightly smaller title so it fits the narrower text column */}
-          <h3 className="work-title mt-1.5 mb-2 text-[20px] sm:text-[24px] md:text-[28px] font-bold tracking-[-0.02em] text-[#17122e] leading-[1.08]">
+          <h3 className="work-title mt-1.5 mb-2 text-[20px] sm:text-[23px] md:text-[26px] font-bold tracking-[-0.02em] text-[#17122e] leading-[1.08]">
             {proj.title}
           </h3>
           <p className="m-0 text-[14px] sm:text-[15px] leading-[1.5] text-[#4a4460]">
@@ -118,7 +116,7 @@ export default function Work({ onOpenContact }) {
           </p>
 
           {/* Tags */}
-          <div className="flex gap-2 flex-wrap mt-3">
+          <div className="flex gap-2 flex-wrap mt-2 sm:mt-3">
             {proj.tags.map((tag, tIdx) => (
               <span
                 key={tIdx}
@@ -129,8 +127,8 @@ export default function Work({ onOpenContact }) {
           </div>
         </div>
 
-        {/* One link style for every card */}
-        <div className="pt-4 mt-auto">
+        {/* Link / Action */}
+        <div className="pt-3 sm:pt-4 mt-auto">
           {proj.link ? (
             <a
               href={proj.link}
@@ -178,7 +176,7 @@ export default function Work({ onOpenContact }) {
     <section
       id="work"
       data-screen-label="Work"
-      className="sec-pad py-10 sm:py-16 px-4 sm:px-6 md:px-8 w-full max-w-[1300px] mx-auto overflow-hidden">
+      className="sec-pad py-10 sm:py-16 px-4 sm:px-6 md:px-8 w-full max-w-[1390px] mx-auto overflow-hidden">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 sm:mb-8">
         <div>
           <span className="text-[11px] sm:text-[12px] font-bold uppercase tracking-wider text-[#512ae5] bg-[#efeafd] px-3 py-1 rounded-full">
@@ -194,7 +192,6 @@ export default function Work({ onOpenContact }) {
           </h2>
         </div>
 
-        {/* Hover to pause info / indicator */}
         <span className="text-xs sm:text-sm font-medium text-[#7b7494] hidden sm:inline-flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
           Auto-rotating · Hover to pause
@@ -208,7 +205,7 @@ export default function Work({ onOpenContact }) {
         onMouseLeave={() => setIsPaused(false)}
         onTouchStart={() => setIsPaused(true)}
         onTouchEnd={() => setIsPaused(false)}
-        className="overflow-hidden py-3"
+        className="overflow-hidden py-3 px-1"
         style={{
           maskImage:
             "linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent)",
@@ -216,16 +213,15 @@ export default function Work({ onOpenContact }) {
             "linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent)",
         }}>
         <div
-          className="work-track flex gap-4 sm:gap-5 w-max"
+          // REFINED: Adjusted track gap for better spacing between consecutive cards
+          className="work-track flex gap-5 sm:gap-6 w-max"
           style={{
             animationDuration: `${CAROUSEL_SECONDS}s`,
             animationPlayState: isPaused ? "paused" : "running",
           }}>
-          {/* First set of projects */}
           {myProjects.map((proj, idx) =>
             renderCard(proj, `symmify-work-a-${idx}`),
           )}
-          {/* Second set for continuous infinite loop */}
           {myProjects.map((proj, idx) =>
             renderCard(proj, `symmify-work-b-${idx}`),
           )}
