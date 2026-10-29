@@ -8,7 +8,6 @@ import Capabilities from "./components/Capabilities";
 import Services from "./components/Services";
 import Work from "./components/Work";
 import Process from "./components/Process";
-import Testimonials from "./components/Testimonials";
 import Closing from "./components/Closing";
 import ContactModal from "./components/ContactModal";
 

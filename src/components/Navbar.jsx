@@ -69,15 +69,16 @@ export default function Navbar({ onOpenContact }) {
               className="hover:text-[#512ae5] transition-colors py-1">
               Services
             </a>
-            <a
-              href="#process"
-              className="hover:text-[#512ae5] transition-colors py-1">
-              How it works
-            </a>
+
             <a
               href="#work"
               className="hover:text-[#512ae5] transition-colors py-1">
               Projects
+            </a>
+            <a
+              href="#process"
+              className="hover:text-[#512ae5] transition-colors py-1">
+              How it works
             </a>
             <a
               href="#contact"
@@ -193,8 +194,8 @@ export default function Navbar({ onOpenContact }) {
               {[
                 { label: "About", href: "#about", index: 0 },
                 { label: "Services", href: "#services", index: 1 },
-                { label: "How it works", href: "#process", index: 2 },
                 { label: "Projects", href: "#work", index: 3 },
+                { label: "How it works", href: "#process", index: 2 },
                 { label: "Contact", href: "#contact", index: 4 },
               ].map(({ label, href, index }) => (
                 <a

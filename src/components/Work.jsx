@@ -1,122 +1,145 @@
-import React, { useRef, useState } from 'react';
+/** @format */
+
+import React, { useRef, useState } from "react";
 
 // Only Symmify's actual projects
+// CHANGED: shorter categories and descriptions, and 2 tags per project (less content)
 const myProjects = [
+  // {
+  //   id: "symmify-jewellery-2",
+  //   category: "E-commerce · Showcase",
+  //   title: "Symmify Jewellery Showcase",
+  //   desc: "A jewellery showcase site with seasonal collections and a simple enquiry flow.",
+  //   tags: ["E-commerce", "Responsive"],
+  //   image: "/projects/fdjfdf.png", // laptop / desktop image (square crop works best)
+  //   mobileImage: "/projects/fdjfdf-mobile.png", // phone image (wide crop works best)
+  //   link: "https://symmifyjewellery2.vercel.app/",
+  // },
   {
-    id: 'symmify-jewellery-1',
-    category: 'Luxury E-Commerce · Store',
-    title: 'Symmify Fine Jewellery',
-    desc: 'React storefront for a luxury jewellery brand featuring high-resolution collection showcases, mobile-first product detail pages, and seamless inquiry flow.',
-    tags: ['E-Commerce', 'React', 'Tailwind CSS', 'Mobile First'],
-    image: '/projects/symmifyjewellery.vercel.app_dfd.png',
-    link: 'https://symmifyjewellery.vercel.app/',
+    id: "bloxhive",
+    category: "Marketplace · Gaming",
+    title: "Blox Hive Marketplace",
+    desc: "An online store for gaming characters and digital products with fast delivery.",
+    tags: ["Digital store", "Web platform"],
+    image: "/projects/b_make_this_img_make_s.webp",
+    mobileImage: "/projects/bloxhive-mobile.png",
+    link: "",
   },
   {
-    id: 'symmify-jewellery-2',
-    category: 'E-Commerce · Collection',
-    title: 'Symmify Jewellery Showcase',
-    desc: 'Responsive jewellery showcase website built around seasonal collections, brand storytelling, and a friction-free purchase enquiry flow.',
-    tags: ['E-Commerce', 'Responsive Design', 'Brand Story'],
-    image: '/projects/fdjfdf.png',
-    link: 'https://symmifyjewellery2.vercel.app/',
+    id: "manufacturing-inventory",
+    category: "Software · Inventory",
+    title: "Manufacturing Inventory System",
+    desc: "Inventory tracking for manufacturers, from raw materials to stock alerts.",
+    tags: ["Operations", "React"],
+    image: "/projects/manufacturing-inventory-lp.webp",
+    mobileImage: "/projects/manufacturing-inventory.png",
+    link: "",
   },
   {
-    id: 'bloxhive',
-    category: 'Digital Marketplace · Gaming',
-    title: 'Blox Hive Marketplace',
-    desc: 'An online gaming character store where players can browse, buy in-game characters and digital products with fast automated delivery.',
-    tags: ['Digital Store', 'Gaming Assets', 'Web Platform'],
-    image: '/projects/bloxhive.png',
-    link: '',
+    id: "job-automation",
+    category: "Automation · Workflow",
+    title: "Outreach & Application Automator",
+    desc: "A tool that makes email outreach and application follow-ups faster.",
+    tags: ["Automation", "Productivity"],
+    image: "/projects/job-automation.png",
+    mobileImage: "/projects/job-automation-mobile.png",
+    link: "",
   },
   {
-    id: 'manufacturing-inventory',
-    category: 'Manufacturing Software · Operations',
-    title: 'Manufacturing Inventory System',
-    desc: 'An end-to-end inventory management system for manufacturers to track raw materials, monitor stock thresholds, and keep production organized.',
-    tags: ['Operations Software', 'Inventory Tracking', 'React'],
-    image: '/projects/manufacturing-inventory.png',
-    link: '',
+    id: "personal-brand",
+    category: "Portfolio · Creative",
+    title: "Personal Brand Experience",
+    desc: "A personal brand site with smooth motion and a clear call to action.",
+    tags: ["Creative web", "Motion"],
+    image: "/projects/personal-brand.png",
+    mobileImage: "/projects/personal-brand-mobile.png",
+    link: "",
   },
   {
-    id: 'job-automation',
-    category: 'Business Automation · Workflow',
-    title: 'Outreach & Application Automator',
-    desc: 'A business productivity automation tool engineered to make repetitive email outreach and multi-stage application workflows faster and easier to manage.',
-    tags: ['Workflow Automation', 'Email Engine', 'Productivity'],
-    image: '/projects/job-automation.png',
-    link: '',
-  },
-  {
-    id: 'personal-brand',
-    category: 'Creative Web · Portfolio',
-    title: 'Personal Brand Experience',
-    desc: 'High-impact personal branding platform engineered with modern motion design, smooth micro-interactions, and conversion-centered messaging.',
-    tags: ['Creative Web', 'UI/UX Design', 'Motion'],
-    image: '/projects/personal-brand.png',
-    link: '',
+    id: "symmify-jewellery-1",
+    category: "E-commerce · Store",
+    title: "Symmify Fine Jewellery",
+    desc: "A React storefront for a luxury jewellery brand with mobile-first product pages.",
+    tags: ["E-commerce", "React"],
+    image: "/projects/b_generate_high_qulity.webp",
+    mobileImage: "/projects/symmifyjewellery.vercel.app_dfd-mobile.png",
+    link: "https://symmifyjewellery.vercel.app/",
   },
 ];
 
 export default function Work({ onOpenContact }) {
   const [isPaused, setIsPaused] = useState(false);
+  const CAROUSEL_SECONDS = 20;
 
   const renderCard = (proj, key) => (
     <div
       key={key}
-      className="work-card card-hov flex-none w-[84vw] sm:w-[440px] md:w-[520px] lg:w-[560px] max-w-[560px] bg-white border border-[#e6e0f6] rounded-[20px] sm:rounded-[22px] p-3 sm:p-4 grid grid-cols-1 md:grid-cols-[1.15fr_1fr] gap-3 sm:gap-4 items-stretch shadow-sm select-none"
-    >
-      {/* Project Image Preview */}
-      <div className="relative w-full h-[190px] sm:h-[220px] md:h-auto md:min-h-[290px] rounded-[14px] sm:rounded-[16px] overflow-hidden bg-[#eee8fb] border border-[#e6e0f6]/60">
-        <img
-          src={proj.image}
-          alt={proj.title}
-          className="work-shot absolute inset-0 w-full h-full object-cover object-top"
-          loading="lazy"
-          onError={(e) => {
-            e.currentTarget.style.display = 'none';
-          }}
-        />
+      // CHANGED: smaller padding (p-2), smaller gap, wider card, image column wider than text column
+      className="work-card card-hov flex-none w-[88vw] sm:w-[480px] md:w-[620px] lg:w-[700px] max-w-[700px] bg-white border border-[#e6e0f6] rounded-[20px] sm:rounded-[24px] p-5  grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-3 sm:gap-6 items-center shadow-sm select-none">
+      {/* Project Image Preview (CHANGED: taller on phones, bigger on laptops) */}
+      <div className="relative w-full h-[240px] sm:h-[280px] md:h-auto md:aspect-[1/1.08] rounded-[14px] sm:rounded-[18px] overflow-hidden bg-[#eee8fb] border border-[#e6e0f6]/60">
+        {/* Phones (under 768px) get the mobile image, laptops get the main image */}
+        <picture>
+          {proj.mobileImage && (
+            <source media="(max-width: 767px)" srcSet={proj.mobileImage} />
+          )}
+          <img
+            src={proj.image}
+            alt={proj.title}
+            className="work-shot absolute inset-0 w-full h-full object-cover object-top"
+            loading="lazy"
+            onError={(e) => {
+              const img = e.currentTarget;
+              const sources = img.parentElement.querySelectorAll("source");
+              if (sources.length) {
+                // mobile image missing: remove it so the laptop image loads instead
+                sources.forEach((s) => s.remove());
+              } else {
+                // laptop image missing too: hide it
+                img.style.display = "none";
+              }
+            }}
+          />
+        </picture>
       </div>
 
-      {/* Project Details */}
-      <div className="flex flex-col p-2 sm:p-3 md:p-4 justify-between">
-        <div>
-          <span className="text-[12px] sm:text-[13px] font-semibold tracking-wide text-[#7b7494] uppercase">
+      {/* Project Details (CHANGED: less padding) */}
+      <div className="flex flex-col self-stretch  justify-between px-1 pb-1 sm:pr-3 md:py-2">
+        <div className="gappind flex flex-col gap-4 py-2">
+          <span className="text-[13px] sm:text-[14px] text-[#7b7494]">
             {proj.category}
           </span>
-          <h3 className="work-title mt-1.5 sm:mt-2 mb-2 sm:mb-2.5 text-[18px] sm:text-[22px] md:text-[24px] font-bold tracking-[-0.02em] text-[#17122e] leading-snug">
+          {/* CHANGED: slightly smaller title so it fits the narrower text column */}
+          <h3 className="work-title mt-1.5 mb-2 text-[20px] sm:text-[24px] md:text-[28px] font-bold tracking-[-0.02em] text-[#17122e] leading-[1.08]">
             {proj.title}
           </h3>
-          <p className="m-0 text-[13px] sm:text-[14px] leading-[1.5] text-[#4a4460]">
+          <p className="m-0 text-[14px] sm:text-[15px] leading-[1.5] text-[#4a4460]">
             {proj.desc}
           </p>
 
           {/* Tags */}
-          <div className="flex gap-1.5 sm:gap-2 flex-wrap mt-3 sm:mt-4">
+          <div className="flex gap-2 flex-wrap mt-3">
             {proj.tags.map((tag, tIdx) => (
               <span
                 key={tIdx}
-                className="text-[11px] sm:text-[12px] font-medium text-[#512ae5] bg-[#efeafd] rounded-full px-2.5 py-0.5 sm:px-3 sm:py-1"
-              >
+                className="text-[12px] sm:text-[13px] font-medium text-[#512ae5] bg-[#efeafd] rounded-full px-3 py-1 sm:px-3.5 sm:py-1.5">
                 {tag}
               </span>
             ))}
           </div>
         </div>
 
-        {/* View Link / Action */}
-        <div className="pt-4 sm:pt-6 mt-auto">
+        {/* One link style for every card */}
+        <div className="pt-4 mt-auto">
           {proj.link ? (
             <a
               href={proj.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-[13px] sm:text-[14px] font-semibold text-[#512ae5] hover:text-[#3f1ec7] transition-colors"
-            >
-              <span>Visit live website</span>
-              <span className="arrow-move w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-[#d9d0f2] inline-flex items-center justify-center bg-white group-hover:bg-[#efeafd]">
-                <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+              className="group inline-flex items-center gap-3 text-[14px] sm:text-[16px] font-medium text-[#512ae5] hover:text-[#3f1ec7] transition-colors">
+              <span>View project</span>
+              <span className="arrow-move w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-[#d9d0f2] inline-flex items-center justify-center bg-white group-hover:bg-[#efeafd]">
+                <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
                   <path
                     d="M3 11L11 3M11 3H4.5M11 3V9.5"
                     stroke="currentColor"
@@ -131,11 +154,10 @@ export default function Work({ onOpenContact }) {
             <button
               type="button"
               onClick={onOpenContact}
-              className="inline-flex items-center gap-2 text-[13px] sm:text-[14px] font-semibold text-[#512ae5] hover:text-[#3f1ec7] transition-colors cursor-pointer"
-            >
-              <span>Case study &amp; details</span>
-              <span className="arrow-move w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-[#d9d0f2] inline-flex items-center justify-center bg-white group-hover:bg-[#efeafd]">
-                <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+              className="group inline-flex items-center gap-3 text-[14px] sm:text-[16px] font-medium text-[#512ae5] hover:text-[#3f1ec7] transition-colors cursor-pointer">
+              <span>View project</span>
+              <span className="arrow-move w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-[#d9d0f2] inline-flex items-center justify-center bg-white group-hover:bg-[#efeafd]">
+                <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
                   <path
                     d="M3 11L11 3M11 3H4.5M11 3V9.5"
                     stroke="currentColor"
@@ -156,8 +178,7 @@ export default function Work({ onOpenContact }) {
     <section
       id="work"
       data-screen-label="Work"
-      className="sec-pad py-10 sm:py-16 px-4 sm:px-6 md:px-8 w-full max-w-[1300px] mx-auto overflow-hidden"
-    >
+      className="sec-pad py-10 sm:py-16 px-4 sm:px-6 md:px-8 w-full max-w-[1300px] mx-auto overflow-hidden">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 sm:mb-8">
         <div>
           <span className="text-[11px] sm:text-[12px] font-bold uppercase tracking-wider text-[#512ae5] bg-[#efeafd] px-3 py-1 rounded-full">
@@ -165,9 +186,8 @@ export default function Work({ onOpenContact }) {
           </span>
           <h2
             data-reveal
-            className="mt-2.5 m-0 max-w-[820px] text-[26px] sm:text-[34px] md:text-[42px] leading-[1.1] font-semibold tracking-[-0.02em] text-[#17122e]"
-          >
-            A few projects we're{' '}
+            className="mt-2.5 m-0 max-w-[820px] text-[26px] sm:text-[34px] md:text-[42px] leading-[1.1] font-semibold tracking-[-0.02em] text-[#17122e]">
+            A few projects we're{" "}
             <span className="font-serif italic font-normal text-[#512ae5]">
               proud of.
             </span>
@@ -191,34 +211,34 @@ export default function Work({ onOpenContact }) {
         className="overflow-hidden py-3"
         style={{
           maskImage:
-            'linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent)',
+            "linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent)",
           WebkitMaskImage:
-            'linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent)',
-        }}
-      >
+            "linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent)",
+        }}>
         <div
           className="work-track flex gap-4 sm:gap-5 w-max"
           style={{
-            animationPlayState: isPaused ? 'paused' : 'running',
-          }}
-        >
+            animationDuration: `${CAROUSEL_SECONDS}s`,
+            animationPlayState: isPaused ? "paused" : "running",
+          }}>
           {/* First set of projects */}
           {myProjects.map((proj, idx) =>
-            renderCard(proj, `symmify-work-a-${idx}`)
+            renderCard(proj, `symmify-work-a-${idx}`),
           )}
           {/* Second set for continuous infinite loop */}
           {myProjects.map((proj, idx) =>
-            renderCard(proj, `symmify-work-b-${idx}`)
+            renderCard(proj, `symmify-work-b-${idx}`),
           )}
         </div>
       </div>
 
       {/* Call to action button */}
-      <div data-reveal className="flex flex-col sm:flex-row items-center justify-center gap-3.5 mt-8 sm:mt-12">
+      <div
+        data-reveal
+        className="flex flex-col sm:flex-row items-center justify-center gap-3.5 mt-8 sm:mt-12">
         <button
           onClick={onOpenContact}
-          className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-[#17122e] hover:bg-[#2c1791] text-white rounded-full pl-6 pr-2.5 py-2.5 text-[14px] sm:text-[15px] font-medium transition-all shadow-md hover:shadow-lg cursor-pointer"
-        >
+          className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-[#17122e] hover:bg-[#2c1791] text-white rounded-full pl-6 pr-2.5 py-2.5 text-[14px] sm:text-[15px] font-medium transition-all shadow-md hover:shadow-lg cursor-pointer">
           <span>Discuss your project with us</span>
           <span className="w-8 h-8 rounded-full bg-white text-[#17122e] flex items-center justify-center transition-transform group-hover:rotate-45">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">

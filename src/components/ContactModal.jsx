@@ -10,7 +10,7 @@ export default function ContactModal({ isOpen, onClose }) {
     name: "",
     email: "",
     service: "Website Development",
-    budget: "$5k - $10k",
+    country: "",
     message: "",
   });
 
@@ -34,7 +34,7 @@ export default function ContactModal({ isOpen, onClose }) {
     setError(false);
 
     try {
-      const response = await fetch("https://formspree.io/f/mrperdoy", {
+      const response = await fetch("https://formspree.io/f/xbggkjnk", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -65,7 +65,6 @@ export default function ContactModal({ isOpen, onClose }) {
     <div
       onClick={handleBackdropClick}
       className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/60 backdrop-blur-md transition-all duration-300">
-      {/* Added [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] below */}
       <div className="relative w-full max-w-[540px] max-h-[92vh] overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] bg-white rounded-[24px] sm:rounded-[32px] p-5 sm:p-8 md:p-9 shadow-2xl border border-[#e6e0f6] animate-in fade-in zoom-in-95 duration-200">
         {/* Top Close Button */}
         <button
@@ -186,24 +185,26 @@ export default function ContactModal({ isOpen, onClose }) {
                     <option value="Full Digital Solution">
                       Full Digital Solution
                     </option>
+                    <option value="Not available in the list">
+                      Not available in the list
+                    </option>
                   </select>
                 </div>
 
                 <div>
                   <label className="block text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-[#7b7494] mb-1">
-                    Budget Range
+                    Country
                   </label>
-                  <select
-                    value={formData.budget}
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. United States, India"
+                    value={formData.country}
                     onChange={(e) =>
-                      setFormData({ ...formData, budget: e.target.value })
+                      setFormData({ ...formData, country: e.target.value })
                     }
-                    className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl border border-[#e6e0f6] bg-[#faf9fc] text-[#17122e] text-[16px] focus:outline-none focus:border-[#512ae5] focus:bg-white transition-all">
-                    <option value="<$5k">&lt; $5,000</option>
-                    <option value="$5k - $10k">$5,000 - $10,000</option>
-                    <option value="$10k - $25k">$10,000 - $25,000</option>
-                    <option value="$25k+">$25,000+</option>
-                  </select>
+                    className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl border border-[#e6e0f6] bg-[#faf9fc] text-[#17122e] text-[16px] focus:outline-none focus:border-[#512ae5] focus:bg-white transition-all"
+                  />
                 </div>
               </div>
 
