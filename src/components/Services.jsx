@@ -31,7 +31,7 @@ export default function Services({ onOpenContact }) {
     <section
       id="services"
       data-screen-label="Services"
-      className="sec-pad py-10 sm:py-14 px-4 sm:px-6 md:px-8 max-w-[1240px] mx-auto w-full">
+      className="sec-pad py-10 sm:py-14 px-4 sm:px-6 md:px-8 max-w-[1340px] mx-auto w-full">
       <div className="mb-6 sm:mb-8">
         <span className="text-[11px] sm:text-[12px] font-bold uppercase tracking-wider text-[#512ae5] bg-[#efeafd] px-3 py-1 rounded-full">
           Capabilities
